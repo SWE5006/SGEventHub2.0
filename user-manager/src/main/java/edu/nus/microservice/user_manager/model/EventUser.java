@@ -19,7 +19,7 @@ import org.springframework.data.annotation.Id;
 public class EventUser {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	private String UserId;
+	private int UserId;
 	private String UserName;
 	private String Password;
 	private String EmailAddress;

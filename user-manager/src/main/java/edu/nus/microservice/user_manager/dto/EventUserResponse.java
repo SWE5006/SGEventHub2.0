@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 
 public class EventUserResponse {
-    private String UserId;
+    private int UserId;
     private String UserName;
     private String Password;
     private String EmailAddress;

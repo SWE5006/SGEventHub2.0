@@ -5,19 +5,22 @@ import edu.nus.microservice.user_manager.repository.UserRepository;
 import edu.nus.microservice.user_manager.model.EventUser;
 import edu.nus.microservice.user_manager.dto.EventUserRequest;
 import edu.nus.microservice.user_manager.dto.EventUserResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
+
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class EventUserService {
 
     private final UserRepository userRepository;
 
-    public EventUserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public void createEventUser(EventUserRequest eventUserRequest) {
         EventUser eventUser = EventUser.builder()
@@ -31,18 +34,33 @@ public class EventUserService {
                 .build();
         userRepository.save(eventUser);
 
-        new EventUserResponse(eventUser.getUserId(), eventUser.getUserName(), eventUser.getPassword()
-                , eventUser.getEmailAddress(), eventUser.getActiveStatus(),
-                eventUser.getRoleId(), eventUser.getCreateDt());
     }
 
-    public void updateEventUser(String UserId,String Password, String UserName, String EmailAddress, int UserRole) {
+    public void deleteEventUser(int userId)
+    {
+        userRepository.deleteById(userId);
+
+    }
+
+
+    public EventUserResponse updateEventUser(int UserId,String Password, String UserName, String EmailAddress,
+                                             int UserRole) {
 
         userRepository.UpdateUser(UserId,Password, UserName, EmailAddress,UserRole);
 
-        new EventUserResponse(UserId, UserName, Password
+        return new EventUserResponse(UserId, UserName, Password
                 , EmailAddress, 1,
                 UserRole, new Date());
+
+
+    }
+
+    public EventUserResponse getEventUserById(int userId)
+    {
+        EventUser eventUser = userRepository.SearchEventUser(userId);
+        return new EventUserResponse(eventUser.getUserId(), eventUser.getUserName(), eventUser.getPassword()
+                , eventUser.getEmailAddress(), eventUser.getActiveStatus(),
+                eventUser.getRoleId(), eventUser.getCreateDt());
     }
 
     public List<EventUserResponse> getAllEventUsers() {

@@ -27,18 +27,30 @@ public class EventUserController {
 
     @PostMapping(path="/update")
     @ResponseStatus(HttpStatus.OK)
-    public void updateEventUser(@RequestParam String UserId,@RequestParam String Password,
+    public EventUserResponse updateEventUser(@RequestParam int UserId,@RequestParam String Password,
                                 @RequestParam String UserName,@RequestParam String EmailAddress,
                                 @RequestParam int UserRole) {
-        eventUserService.updateEventUser(UserId,Password, UserName, EmailAddress,UserRole);
+        return eventUserService.updateEventUser(UserId,Password, UserName, EmailAddress,UserRole);
     }
 
     @GetMapping (path="/all")
-
     @ResponseStatus(HttpStatus.OK)
     public List<EventUserResponse> getAllEventUsers() {
         return eventUserService.getAllEventUsers();
     }
+
+    @PostMapping(path="/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteEventUser(@PathVariable("id") int userId) {
+       eventUserService.deleteEventUser(userId);
+    }
+
+    @PostMapping(path="/search/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public EventUserResponse searchEventUser(@PathVariable("id") int userId) {
+        return eventUserService.getEventUserById(userId);
+    }
+
 
 
 }

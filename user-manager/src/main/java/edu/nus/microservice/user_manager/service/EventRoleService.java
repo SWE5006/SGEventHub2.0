@@ -1,21 +1,22 @@
 package edu.nus.microservice.user_manager.service;
 
-import edu.nus.microservice.user_manager.dto.EventUserRequest;
-import edu.nus.microservice.user_manager.dto.EventUserResponse;
+
 import edu.nus.microservice.user_manager.dto.UserRoleRequest;
 import edu.nus.microservice.user_manager.dto.UserRoleResponse;
-import edu.nus.microservice.user_manager.model.EventUser;
+
 import edu.nus.microservice.user_manager.model.UserRole;
 import edu.nus.microservice.user_manager.repository.RoleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
+@RequiredArgsConstructor
+@Transactional
+
 public class EventRoleService {
     private final RoleRepository roleRepository;
-
-    public EventRoleService(RoleRepository roleRepository) {
-        this.roleRepository =  roleRepository;
-    }
 
     public void createUserRole(UserRoleRequest userRoleRequest) {
         UserRole userRole = UserRole.builder()

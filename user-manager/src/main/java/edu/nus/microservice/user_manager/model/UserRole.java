@@ -15,7 +15,7 @@ import org.springframework.data.annotation.Id;
 public class UserRole {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	private String RoleId;
+	private int RoleId;
 	private String RoleName;
 	private String Permission;
 }

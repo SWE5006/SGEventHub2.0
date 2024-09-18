@@ -19,7 +19,7 @@ import java.util.Date;
 public class RolePermission {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private String PermissionId;
+    private int PermissionId;
     private String RoleName;
     private String Permissions;
 }

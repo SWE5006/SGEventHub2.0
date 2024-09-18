@@ -2,24 +2,23 @@ package edu.nus.microservice.user_manager.service;
 
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import edu.nus.microservice.user_manager.repository.PermissionRepository;
 import edu.nus.microservice.user_manager.model.RolePermission;
 import edu.nus.microservice.user_manager.dto.RolePermissionRequest;
 import edu.nus.microservice.user_manager.dto.RolePermissionResponse;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
-
+@RequiredArgsConstructor
+@Transactional
 @Service
 public class RolePermissionService {
 
     private final PermissionRepository permissionRepository;
 
-    public RolePermissionService(PermissionRepository permissionRepository) {
-        this.permissionRepository =  permissionRepository;
-    }
 
     public List<RolePermissionResponse> getAllRolePermission() {
         List<RolePermission> rolePermissionList = (List<RolePermission>) permissionRepository.findAll();

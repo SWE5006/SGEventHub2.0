@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RolePermissionResponse {
-    private String PermissionId;
+    private int PermissionId;
     private String RoleName;
     private String Permissions;
 }
