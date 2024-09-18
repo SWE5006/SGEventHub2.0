@@ -15,8 +15,8 @@ public class EventUserService {
 
     private final UserRepository userRepository;
 
-    public EventUserService(EventUserRequest userRepository) {
-        this.userRepository =  (UserRepository) userRepository;
+    public EventUserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public void createEventUser(EventUserRequest eventUserRequest) {
@@ -54,7 +54,10 @@ public class EventUserService {
     private EventUserResponse maptoEventUserResponse(EventUser eventUser) {
         return EventUserResponse.builder()
                 .UserId(eventUser.getUserId())
-
+                .UserName(eventUser.getUserName())
+                .EmailAddress(eventUser.getEmailAddress())
+                .ActiveStatus(eventUser.getActiveStatus())
+                .CreateDt(eventUser.getCreateDt())
                 .build();
     }
 

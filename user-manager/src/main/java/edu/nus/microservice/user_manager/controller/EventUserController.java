@@ -19,19 +19,22 @@ public class EventUserController {
     private final EventUserService eventUserService;
 
 
-    @PostMapping
+    @PostMapping (path="/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void createEventUser(@RequestBody EventUserRequest eventUserRequest) {
         eventUserService.createEventUser(eventUserRequest);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void updateEventUser(@RequestBody String UserId,String Password, String UserName, String EmailAddress, int UserRole) {
+    @PostMapping(path="/update")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateEventUser(@RequestParam String UserId,@RequestParam String Password,
+                                @RequestParam String UserName,@RequestParam String EmailAddress,
+                                @RequestParam int UserRole) {
         eventUserService.updateEventUser(UserId,Password, UserName, EmailAddress,UserRole);
     }
 
-    @GetMapping
+    @GetMapping (path="/all")
+
     @ResponseStatus(HttpStatus.OK)
     public List<EventUserResponse> getAllEventUsers() {
         return eventUserService.getAllEventUsers();
