@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +44,7 @@ public class EventUserService {
     }
 
 
-    public EventUserResponse updateEventUser(int UserId,String Password, String UserName, String EmailAddress,
+    public EventUserResponse updateEventUser(UUID UserId, String Password, String UserName, String EmailAddress,
                                              int UserRole) {
 
         userRepository.UpdateUser(UserId,Password, UserName, EmailAddress,UserRole);

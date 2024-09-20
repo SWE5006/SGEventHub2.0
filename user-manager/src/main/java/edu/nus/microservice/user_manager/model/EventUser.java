@@ -1,25 +1,26 @@
 package edu.nus.microservice.user_manager.model;
 
 import java.util.Date;
+import java.util.UUID;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Table;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 
-@Data
+@Entity
+@Table
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-
 public class EventUser {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	private int UserId;
+	private UUID UserId;
 	private String UserName;
 	private String Password;
 	private String EmailAddress;

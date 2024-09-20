@@ -1,6 +1,7 @@
 package edu.nus.microservice.user_manager.repository;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -17,7 +18,7 @@ public interface UserRepository extends CrudRepository<EventUser, Integer> {
 	List<EventUser> checkUserLogin(int UserId,String Password);
 	
 	@Query(value = "Update event_user set password=?2,email_address=?3,user_role=?4 where user_id=?1",nativeQuery = true)
-	void UpdateUser(int UserId,String Password, String UserName, String EmailAddress, int UserRole);
+	void UpdateUser(UUID UserId, String Password, String UserName, String EmailAddress, int UserRole);
 	
 	@Query(value = "select event_user.* from event_user where user_id=?1",nativeQuery = true)
 	EventUser SearchEventUser(int UserId);

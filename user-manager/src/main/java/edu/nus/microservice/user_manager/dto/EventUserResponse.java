@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.UUID;
 
 
 @Data
@@ -12,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 
 public class EventUserResponse {
-    private int UserId;
+    private UUID UserId;
     private String UserName;
     private String Password;
     private String EmailAddress;
