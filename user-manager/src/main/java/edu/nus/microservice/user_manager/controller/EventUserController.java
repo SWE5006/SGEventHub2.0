@@ -10,32 +10,48 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/user-manager")
+@RequestMapping("/api/user-manager/user")
 @RequiredArgsConstructor
 public class EventUserController {
 
     private final EventUserService eventUserService;
 
 
-    @PostMapping
+    @PostMapping (path="/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void createEventUser(@RequestBody EventUserRequest eventUserRequest) {
         eventUserService.createEventUser(eventUserRequest);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void updateEventUser(@RequestBody String UserId,String Password, String UserName, String EmailAddress, int UserRole) {
-        eventUserService.updateEventUser(UserId,Password, UserName, EmailAddress,UserRole);
+    @PostMapping(path="/update")
+    @ResponseStatus(HttpStatus.OK)
+    public EventUserResponse updateEventUser(@RequestParam UUID UserId, @RequestParam String Password,
+                                             @RequestParam String UserName, @RequestParam String EmailAddress,
+                                             @RequestParam int UserRole) {
+        return eventUserService.updateEventUser(UserId,Password, UserName, EmailAddress,UserRole);
     }
 
-    @GetMapping
+    @GetMapping (path="/all")
     @ResponseStatus(HttpStatus.OK)
     public List<EventUserResponse> getAllEventUsers() {
         return eventUserService.getAllEventUsers();
     }
+
+    @DeleteMapping(path="/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteEventUser(@PathVariable("id") int userId) {
+       eventUserService.deleteEventUser(userId);
+    }
+
+    @GetMapping(path="/search/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public EventUserResponse searchEventUser(@PathVariable("id") UUID userId) {
+        return eventUserService.getEventUserById(userId);
+    }
+
 
 
 }

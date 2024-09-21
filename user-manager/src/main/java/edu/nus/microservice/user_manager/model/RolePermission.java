@@ -1,7 +1,6 @@
 package edu.nus.microservice.user_manager.model;
 
-import java.util.Date;
-import java.util.UUID;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +9,8 @@ import jakarta.persistence.Table;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table
@@ -18,15 +19,10 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class EventUser {
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	private UUID UserId;
-	private String UserName;
-	private String Password;
-	private String EmailAddress;
-	private int ActiveStatus;
-	private int RoleId;
-	private Date CreateDt;
-
+public class RolePermission {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private UUID PermissionId;
+    private String RoleName;
+    private String Permissions;
 }

@@ -1,6 +1,8 @@
 package edu.nus.microservice.user_manager.dto;
 
 import java.util.Date;
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EventUserRequest
 {
-    private String UserId;
+    private UUID UserId;
     private String UserName;
     private String Password;
     private String EmailAddress;
