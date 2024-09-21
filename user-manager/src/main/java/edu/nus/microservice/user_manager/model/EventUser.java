@@ -17,6 +17,7 @@ import org.springframework.data.annotation.Id;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class EventUser {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)

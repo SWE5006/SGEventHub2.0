@@ -10,9 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/user-manager")
+@RequestMapping("/api/user-manager/user")
 @RequiredArgsConstructor
 public class EventUserController {
 
@@ -27,9 +28,9 @@ public class EventUserController {
 
     @PostMapping(path="/update")
     @ResponseStatus(HttpStatus.OK)
-    public EventUserResponse updateEventUser(@RequestParam int UserId,@RequestParam String Password,
-                                @RequestParam String UserName,@RequestParam String EmailAddress,
-                                @RequestParam int UserRole) {
+    public EventUserResponse updateEventUser(@RequestParam UUID UserId, @RequestParam String Password,
+                                             @RequestParam String UserName, @RequestParam String EmailAddress,
+                                             @RequestParam int UserRole) {
         return eventUserService.updateEventUser(UserId,Password, UserName, EmailAddress,UserRole);
     }
 
@@ -45,7 +46,7 @@ public class EventUserController {
        eventUserService.deleteEventUser(userId);
     }
 
-    @PostMapping(path="/search/{id}")
+    @GetMapping(path="/search/{id}")
     @ResponseStatus(HttpStatus.OK)
     public EventUserResponse searchEventUser(@PathVariable("id") int userId) {
         return eventUserService.getEventUserById(userId);

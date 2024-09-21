@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +30,17 @@ public class EventService {
                 .eventDesc(event.getEventDesc())
 
                 .build();
+    }
+
+    public EventResponse getEventbyTitle(String Title)
+    {
+        Event sgevent = eventRepository.SearchEventByTitle(Title);
+
+
+        return new EventResponse(sgevent.getEventId(),sgevent.getEventTitle(),
+                sgevent.getEventDesc(),sgevent.getEventCreateDt(),sgevent.getEventStartDt(),
+                sgevent.getEventEndDt(),sgevent.getEventPlace(),sgevent.getEventCapacity(),
+                sgevent.getEventOwnerId(),sgevent.getEventStatus(),sgevent.getEventCover());
+
     }
 }

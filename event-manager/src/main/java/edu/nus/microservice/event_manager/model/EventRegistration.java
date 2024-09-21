@@ -15,12 +15,10 @@ import lombok.*;
 public class EventRegistration {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID registerId;
   private UUID userId;
-
-  @Id
   private UUID eventId;
-
   private Date registerDt;
-
   private String registerStatus;
 }

@@ -18,6 +18,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class RolePermission {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
