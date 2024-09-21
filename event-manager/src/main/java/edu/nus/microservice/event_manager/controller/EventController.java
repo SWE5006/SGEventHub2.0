@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user-manager")
+@RequestMapping("/api/event-manager/event")
 @RequiredArgsConstructor
 public class EventController {
 
@@ -23,7 +23,7 @@ public class EventController {
     @PostMapping (path="/create")
     @ResponseStatus(HttpStatus.CREATED)
     public void createEvent(@RequestBody EventRequest eventRequest) {
-        eventUserService.createEventUser(eventRequest);
+        eventService.createEvent(eventRequest);
     }
 
 

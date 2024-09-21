@@ -7,9 +7,5 @@ import java.util.UUID;
 
 public class EventReviewService {
 
-    @Query(
-            value = "select event.* from event where event_id=?1",
-            nativeQuery = true
-    )
-    Event QueryEventReviewById(UUID event_id);
+    
 }

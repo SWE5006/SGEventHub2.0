@@ -1,5 +1,6 @@
 package edu.nus.microservice.event_manager.service;
 
+import edu.nus.microservice.event_manager.dto.EventRequest;
 import edu.nus.microservice.event_manager.dto.EventResponse;
 import edu.nus.microservice.event_manager.model.Event;
 import edu.nus.microservice.event_manager.repository.EventRepository;
@@ -30,6 +31,14 @@ public class EventService {
                 .eventDesc(event.getEventDesc())
 
                 .build();
+    }
+
+    public void createEvent(EventRequest eventRequest) {
+        Event sgevent = Event.builder()
+                .eventId(eventRequest.getEventId())
+                .build();
+        eventRepository.save(sgevent);
+
     }
 
     public EventResponse getEventbyTitle(String Title)
