@@ -18,7 +18,6 @@ public class EventReview {
     @Id
     @GeneratedValue
     private UUID reviewId;
-    
     private UUID eventId;
     private UUID userId;
     private int rating;

@@ -20,13 +20,13 @@ public class EventService {
     private final EventRepository eventRepository;
 
 
-    public List<EventResponse> getAllEventUsers() {
+    public List<EventResponse> getAllEvents() {
         List<Event> eventlist = (List<Event>) eventRepository.findAll();
 
-        return eventlist.stream().map(this::maptoEventUserResponse).toList();
+        return eventlist.stream().map(this::maptoEventResponse).toList();
     }
 
-    private EventResponse maptoEventUserResponse(Event event) {
+    private EventResponse maptoEventResponse(Event event) {
         return EventResponse.builder()
                 .eventDesc(event.getEventDesc())
 

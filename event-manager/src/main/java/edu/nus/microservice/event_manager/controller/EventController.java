@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/event-manager/event")
 @RequiredArgsConstructor
@@ -26,5 +28,10 @@ public class EventController {
         eventService.createEvent(eventRequest);
     }
 
+    @GetMapping (path="/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<EventResponse> getAllEventUsers() {
+        return eventService.getAllEvents();
+    }
 
 }
