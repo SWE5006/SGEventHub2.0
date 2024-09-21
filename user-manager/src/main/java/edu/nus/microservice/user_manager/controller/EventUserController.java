@@ -40,7 +40,7 @@ public class EventUserController {
         return eventUserService.getAllEventUsers();
     }
 
-    @PostMapping(path="/delete/{id}")
+    @DeleteMapping(path="/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteEventUser(@PathVariable("id") int userId) {
        eventUserService.deleteEventUser(userId);
@@ -48,7 +48,7 @@ public class EventUserController {
 
     @GetMapping(path="/search/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public EventUserResponse searchEventUser(@PathVariable("id") int userId) {
+    public EventUserResponse searchEventUser(@PathVariable("id") UUID userId) {
         return eventUserService.getEventUserById(userId);
     }
 

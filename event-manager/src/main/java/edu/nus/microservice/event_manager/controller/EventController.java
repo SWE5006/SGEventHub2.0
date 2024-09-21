@@ -19,7 +19,7 @@ public class EventController {
     @GetMapping("/{title}")
     @ResponseStatus(HttpStatus.OK)
     public EventResponse searchEventUser(@PathVariable("id") String Title) {
-        return eventService.getEventbyTitle(Title);
+        return eventService.searchEventByTitle(Title);
     }
 
     @PostMapping (path="/create")

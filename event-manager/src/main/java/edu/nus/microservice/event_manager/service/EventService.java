@@ -4,14 +4,11 @@ import edu.nus.microservice.event_manager.dto.EventRequest;
 import edu.nus.microservice.event_manager.dto.EventResponse;
 import edu.nus.microservice.event_manager.model.Event;
 import edu.nus.microservice.event_manager.repository.EventRepository;
-import edu.nus.microservice.event_manager.repository.EventReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +38,7 @@ public class EventService {
 
     }
 
-    public EventResponse getEventbyTitle(String Title)
+    public EventResponse searchEventByTitle(String Title)
     {
         Event sgevent = eventRepository.SearchEventByTitle(Title);
 

@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/user-manager/permission")
 @RequiredArgsConstructor
 public class RolePermissionController {
-    private RolePermissionService rolePermissionService;
+    private final RolePermissionService rolePermissionService;
 
     @PostMapping(path="/create")
     @ResponseStatus(HttpStatus.CREATED)
@@ -25,7 +25,6 @@ public class RolePermissionController {
 
 
     @GetMapping(path="/all")
-
     @ResponseStatus(HttpStatus.OK)
     public List<RolePermissionResponse> getAllPermission() {
         return rolePermissionService.getAllRolePermission();

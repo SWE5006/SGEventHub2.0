@@ -21,6 +21,6 @@ public interface UserRepository extends CrudRepository<EventUser, Integer> {
 	void UpdateUser(UUID UserId, String Password, String UserName, String EmailAddress, int UserRole);
 	
 	@Query(value = "select event_user.* from event_user where user_id=?1",nativeQuery = true)
-	EventUser SearchEventUser(int UserId);
+	EventUser SearchEventUser(UUID UserId);
 	
 }

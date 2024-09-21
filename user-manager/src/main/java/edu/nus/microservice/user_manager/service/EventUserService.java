@@ -56,7 +56,7 @@ public class EventUserService {
 
     }
 
-    public EventUserResponse getEventUserById(int userId)
+    public EventUserResponse getEventUserById(UUID userId)
     {
         EventUser eventUser = userRepository.SearchEventUser(userId);
         return new EventUserResponse(eventUser.getUserId(), eventUser.getUserName(), eventUser.getPassword()
