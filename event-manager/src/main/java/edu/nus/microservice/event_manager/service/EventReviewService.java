@@ -29,7 +29,10 @@ public class EventReviewService {
     private EventReviewResponse maptoReviewResponse(EventReview eventReview) {
         return EventReviewResponse.builder()
                 .reviewId(eventReview.getReviewId())
-
+                .eventId(eventReview.getEventId())
+                .comment(eventReview.getComment())
+                .rating(eventReview.getRating())
+                .userId(eventReview.getUserId())
                 .build();
     }
 }

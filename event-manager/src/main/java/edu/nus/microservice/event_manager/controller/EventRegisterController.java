@@ -6,12 +6,10 @@ import edu.nus.microservice.event_manager.service.EventRegisterationService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/event-manager/register")
@@ -25,4 +23,30 @@ public class EventRegisterController {
     public List<EventRegisterResponse> getAllEventRegister() {
         return registrationService.getAllRegistration();
     }
+
+
+    @GetMapping(path = "/register/{eventid}/{userid}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public EventRegisterResponse RegisterEvent(
+            @PathVariable("eventid") UUID eventid,
+            @PathVariable("userid") UUID userid
+    ) {
+
+    return registrationService.registerEvent(userid,eventid);
+
+    }
+
+    @GetMapping(path = "/unregister/{eventid}/{userid}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public EventRegisterResponse UnRegisterEvent(
+            @PathVariable("eventid") UUID eventid,
+            @PathVariable("userid") UUID userid
+    ) {
+
+        return registrationService.unregisterEvent(userid,eventid);
+
+    }
+
+
+
 }
