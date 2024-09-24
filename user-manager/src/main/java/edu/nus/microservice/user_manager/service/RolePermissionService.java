@@ -40,8 +40,6 @@ public class RolePermissionService {
                 .PermissionId(rolePermissionRequest.getPermissionId())
                 .RoleName(rolePermissionRequest.getRoleName())
                 .Permissions(rolePermissionRequest.getPermissions())
-
-
                 .build();
         permissionRepository.save(rolePermission);
 
