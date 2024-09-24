@@ -33,6 +33,17 @@ public class EventService {
     public void createEvent(EventRequest eventRequest) {
         Event sgevent = Event.builder()
                 .eventId(eventRequest.getEventId())
+                .eventCreateDt(eventRequest.getEventCreateDt())
+                .eventCover(eventRequest.getEventCover())
+                .eventCapacity(eventRequest.getEventCapacity())
+                .eventOwnerId(eventRequest.getEventOwnerId())
+                .eventPlace(eventRequest.getEventPlace())
+                .eventStartDt(eventRequest.getEventStartDt())
+                .eventStatus(eventRequest.getEventStatus())
+                .eventTitle(eventRequest.getEventTitle())
+                .eventEndDt(eventRequest.getEventEndDt())
+                .eventDesc(eventRequest.getEventDesc())
+
                 .build();
         eventRepository.save(sgevent);
 

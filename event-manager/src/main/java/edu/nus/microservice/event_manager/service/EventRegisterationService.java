@@ -27,8 +27,28 @@ public class EventRegisterationService {
     private EventRegisterResponse maptoRegisterResponse(EventRegistration eventRegistration) {
         return EventRegisterResponse.builder()
                 .registerId(eventRegistration.getRegisterId())
-
+                .eventId(eventRegistration.getEventId())
+                .registerDt(eventRegistration.getRegisterDt())
+                .userId(eventRegistration.getUserId())
                 .build();
+    }
+
+    public EventRegisterResponse registerEvent(UUID UserId,UUID eventId)
+    {
+       // Event sgevent = eventRepository.SearchEventByTitle();
+
+
+        return new EventRegisterResponse();
+
+    }
+
+    public EventRegisterResponse unregisterEvent(UUID UserId,UUID eventId)
+    {
+        // Event sgevent = eventRepository.SearchEventByTitle();
+
+
+        return new EventRegisterResponse();
+
     }
 
 }
