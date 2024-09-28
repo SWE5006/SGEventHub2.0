@@ -21,7 +21,7 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "5.15.6",
     "@mui/lab": "5.0.0-alpha.169",
-    "@mui/material": "5.15.6",
+    "@mui/material": "^5.16.7",
     "@mui/x-date-pickers": "^7.1.0",
     "@mui/x-date-pickers-pro": "^7.1.0",
     "@reduxjs/toolkit": "^2.1.0",

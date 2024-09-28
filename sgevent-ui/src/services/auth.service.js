@@ -11,7 +11,7 @@ export const authApi = createApi({
     login: builder.mutation({
       // Adjust the query to accept credentials and pass them in the request body
       query: (credentials) => ({
-        url: "/eventuser/login",
+        url: "/user-manager/user/login",
         method: "POST",
         body: credentials, // This will be the object containing the email and password
       }),
@@ -21,7 +21,7 @@ export const authApi = createApi({
     signUp: builder.mutation({
       // Adjust the query to accept user info and pass them in the request body
       query: (userInfo) => ({
-        url: "/eventuser/UserSignup", // 假设这是你的注册接口
+        url: "/user-manager/user/create", // 假设这是你的注册接口
         method: "POST",
         body: userInfo, // This will be the object containing the user info
       }),
