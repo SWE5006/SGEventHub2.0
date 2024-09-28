@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/user-manager/user")
+@RequestMapping("/user-manager/user")
 @RequiredArgsConstructor
 public class EventUserController {
 
@@ -25,7 +25,7 @@ public class EventUserController {
     @PostMapping (path="/signup")
     @ResponseStatus(value=HttpStatus.CREATED,reason = "Successfully Created")
     public EventUserResponse createEventUser(@RequestParam String UserName,
-                                            @RequestParam String EmailAddress,
+                                             @RequestParam String EmailAddress,
                                              @RequestParam String Password) {
 
         boolean found = eventUserService.CheckUserExist(EmailAddress);
@@ -36,8 +36,29 @@ public class EventUserController {
             );
         }
 
-        eventUserService.createEventUser(eventUserRequest);
-        return eventUserService.createEventUser(eventUserRequest);
+        return eventUserService.SignUpUser(UserName,EmailAddress,Password);
+
+    }
+
+    @PostMapping (path="/add")
+    @ResponseStatus(value=HttpStatus.CREATED,reason = "Successfully Created")
+    public EventUserResponse AddUser(@RequestParam String UserName,
+                                             @RequestParam String EmailAddress,
+                                             @RequestParam String Password,
+                                     @RequestParam int ActiveStatus,
+                                     @RequestParam int UserRole
+                                            ) {
+
+        boolean found = eventUserService.CheckUserExist(EmailAddress);
+        if (found) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Email address is already registered."
+            );
+        }
+
+        return eventUserService.AddUser(UserName,EmailAddress,Password,ActiveStatus,UserRole);
+
     }
 
     @PostMapping(path="/chpassword")

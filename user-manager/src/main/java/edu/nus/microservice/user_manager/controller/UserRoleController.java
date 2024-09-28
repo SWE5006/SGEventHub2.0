@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user-manager/role")
+@RequestMapping("/user-manager/role")
 @RequiredArgsConstructor
 public class UserRoleController {
 

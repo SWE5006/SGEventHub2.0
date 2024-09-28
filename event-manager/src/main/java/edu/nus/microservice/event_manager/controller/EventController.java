@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/event-manager/event")
+@RequestMapping("/event-manager/event")
 @RequiredArgsConstructor
 public class EventController {
 
@@ -18,7 +18,7 @@ public class EventController {
 
     @GetMapping("/{title}")
     @ResponseStatus(HttpStatus.OK)
-    public EventResponse searchEventUser(@PathVariable("id") String Title) {
+    public EventResponse searchEventUser(@PathVariable("title") String Title) {
         return eventService.searchEventByTitle(Title);
     }
 
