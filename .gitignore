@@ -23,3 +23,5 @@
 hs_err_pid*
 replay_pid*
 .vscode/settings.json
+/.idea
+.idea/compiler.xml

@@ -33,6 +33,10 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-    - name: Build with Maven
+    - name: Build UserManager
       working-directory: user-manager
+      run: mvn -B package --file pom.xml
+
+    - name: Build eventManager
+      working-directory: event-manager
       run: mvn -B package --file pom.xml
