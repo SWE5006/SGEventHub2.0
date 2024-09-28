@@ -17,9 +17,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class UserRole {
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	private UUID RoleId;
+
+	private int RoleId;
 	private String RoleName;
 	private String Permission;
 }

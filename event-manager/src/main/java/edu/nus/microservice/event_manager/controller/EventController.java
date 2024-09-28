@@ -30,8 +30,9 @@ public class EventController {
 
     @GetMapping (path="/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<EventResponse> getAllEventUsers() {
+    public List<EventResponse> getAllEvents() {
         return eventService.getAllEvents();
     }
+
 
 }
