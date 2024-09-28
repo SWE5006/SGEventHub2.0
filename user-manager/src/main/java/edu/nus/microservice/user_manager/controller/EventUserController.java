@@ -24,9 +24,11 @@ public class EventUserController {
 
     @PostMapping (path="/signup")
     @ResponseStatus(value=HttpStatus.CREATED,reason = "Successfully Created")
-    public EventUserResponse createEventUser(@RequestBody EventUserRequest eventUserRequest) {
+    public EventUserResponse createEventUser(@RequestParam String UserName,
+                                            @RequestParam String EmailAddress,
+                                             @RequestParam String Password) {
 
-        boolean found = eventUserService.CheckUserExist(eventUserRequest.getEmailAddress());
+        boolean found = eventUserService.CheckUserExist(EmailAddress);
         if (found) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,

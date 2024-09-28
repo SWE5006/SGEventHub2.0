@@ -44,6 +44,21 @@ public class EventUserService {
                 1, new Date());
     }
 
+    public EventUserResponse SignUpUser(String UserName,String EmailAddress,String Password) {
+        EventUser eventUser = EventUser.builder()
+                .UserName(UserName)
+                .EmailAddress(EmailAddress)
+                .CreateDt(new Date())
+                .Password(Password)
+                .ActiveStatus(1)
+                .RoleId(1)
+                .build();
+        userRepository.save(eventUser);
+        return new EventUserResponse(eventUser.getUserId(), eventUser.getUserName(), eventUser.getPassword()
+                , eventUser.getEmailAddress(), 1,
+                1, new Date());
+    }
+
     public void deleteEventUser(int userId)
     {
         userRepository.deleteById(userId);
