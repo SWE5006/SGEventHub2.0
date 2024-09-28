@@ -52,13 +52,13 @@ class UserManagerApplicationTests {
 
 		when(userRepository.findAll()).thenReturn(allEventUser);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-				"/api/user-manager/user/all").accept(
+				"/user-manager/user/all").accept(
 				MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		assertNotNull(result);
 
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/user-manager/user/a"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/user-manager/user/a"))
 				.andExpect(MockMvcResultMatchers.status().isNotFound());
 
 
