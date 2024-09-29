@@ -64,6 +64,6 @@ jobs:
         
       - name: Deploy to S3
         working-directory: sgevent-ui
-        run: gatsby-plugin-s3 deploy
+        run: npx gatsby-plugin-s3 deploy
 
   
