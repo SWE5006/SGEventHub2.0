@@ -17,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class UserRole {
-
+@Id
 	private int RoleId;
 	private String RoleName;
 	private String Permission;
