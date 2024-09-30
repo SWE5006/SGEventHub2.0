@@ -21,4 +21,10 @@ public interface EventReviewRepository extends JpaRepository<EventReview, UUID> 
     )
     EventReview QueryEventReviewById(UUID review_id);
 
+    @Query(
+            value = "select event_review.* from event_review where event_id=?1",
+            nativeQuery = true
+    )
+    EventReview QueryEventReviewByEventId(UUID event_id);
+
 }

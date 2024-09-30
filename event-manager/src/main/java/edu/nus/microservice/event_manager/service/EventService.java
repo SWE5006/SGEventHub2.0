@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,9 +31,10 @@ public class EventService {
                 .build();
     }
 
-    public void createEvent(EventRequest eventRequest) {
+    public EventResponse createEvent(EventRequest eventRequest) {
         Event sgevent = Event.builder()
                 .eventId(eventRequest.getEventId())
+
                 .eventCreateDt(eventRequest.getEventCreateDt())
                 .eventCover(eventRequest.getEventCover())
                 .eventCapacity(eventRequest.getEventCapacity())
@@ -46,12 +48,33 @@ public class EventService {
 
                 .build();
         eventRepository.save(sgevent);
+        return new EventResponse(eventRequest.getEventId(),eventRequest.getEventTitle(),eventRequest.getEventDesc(),
+        eventRequest.getEventCreateDt(),eventRequest.getEventStartDt(),eventRequest.getEventEndDt(),eventRequest.getEventPlace(),
+                eventRequest.getEventCapacity(),eventRequest.getEventOwnerId(),eventRequest.getEventStatus(),eventRequest.getEventCover());
+
+    }
+
+    public void deleteEventbyId(UUID eventid)
+    {
+        eventRepository.deleteById(eventid);
 
     }
 
     public EventResponse searchEventByTitle(String Title)
     {
         Event sgevent = eventRepository.SearchEventByTitle(Title);
+
+
+        return new EventResponse(sgevent.getEventId(),sgevent.getEventTitle(),
+                sgevent.getEventDesc(),sgevent.getEventCreateDt(),sgevent.getEventStartDt(),
+                sgevent.getEventEndDt(),sgevent.getEventPlace(),sgevent.getEventCapacity(),
+                sgevent.getEventOwnerId(),sgevent.getEventStatus(),sgevent.getEventCover());
+
+    }
+
+    public EventResponse searchEventById(UUID eventId)
+    {
+        Event sgevent = eventRepository.QueryEventById(eventId);
 
 
         return new EventResponse(sgevent.getEventId(),sgevent.getEventTitle(),
