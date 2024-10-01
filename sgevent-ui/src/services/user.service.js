@@ -30,7 +30,7 @@ export const userApi = createApi({
     }),
     addUser: builder.mutation({
       query: (payload) => ({
-        url: `/user-manager/user/create`,
+        url: `/user-manager/user/signup`,
         method: "POST",
         body: payload,
       }),

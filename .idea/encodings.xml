@@ -3,5 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/event-manager/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user-manager/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-manager/src/main/java/edu/nus/microservice/user_manager/controller/EventUserController.java" charset="UTF-8" />
   </component>
 </project>

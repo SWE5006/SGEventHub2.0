@@ -1,14 +1,11 @@
 package edu.nus.microservice.user_manager.service;
 
-
-import edu.nus.microservice.user_manager.dto.UserDetailResponse;
-import edu.nus.microservice.user_manager.dto.UserRoleResponse;
+import edu.nus.microservice.user_manager.controller.EventUserController;
+import edu.nus.microservice.user_manager.dto.*;
 import edu.nus.microservice.user_manager.model.UserRole;
 import edu.nus.microservice.user_manager.repository.RoleRepository;
 import edu.nus.microservice.user_manager.repository.UserRepository;
 import edu.nus.microservice.user_manager.model.EventUser;
-import edu.nus.microservice.user_manager.dto.EventUserRequest;
-import edu.nus.microservice.user_manager.dto.EventUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,52 +26,46 @@ public class EventUserService {
 
 
     public EventUserResponse createEventUser(EventUserRequest eventUserRequest) {
-        EventUser eventUser = EventUser.builder()
-                .UserId(eventUserRequest.getUserId())
-                .UserName(eventUserRequest.getUserName())
-                .EmailAddress(eventUserRequest.getEmailAddress())
-                .CreateDt(new Date())
-                .Password(eventUserRequest.getPassword())
-                .ActiveStatus(1)
-                .RoleId(1)
-                .build();
-        userRepository.save(eventUser);
-        return new EventUserResponse(eventUser.getUserId(), eventUser.getUserName(), eventUser.getPassword()
-                , eventUser.getEmailAddress(), 1,
-                1, new Date());
+        return saveAndBuildResponse(
+                eventUserRequest.getUserName(),
+                eventUserRequest.getEmailAddress(),
+                eventUserRequest.getPassword(),
+                1,  // 默认 ActiveStatus
+                1   // 默认 RoleId
+        );
     }
 
-    public EventUserResponse SignUpUser(String UserName,String EmailAddress,String Password) {
-        EventUser eventUser = EventUser.builder()
-                .UserName(UserName)
-                .EmailAddress(EmailAddress)
-                .CreateDt(new Date())
-                .Password(Password)
-                .ActiveStatus(1)
-                .RoleId(1)
-                .build();
-        userRepository.save(eventUser);
-        return new EventUserResponse(eventUser.getUserId(), eventUser.getUserName(), eventUser.getPassword()
-                , eventUser.getEmailAddress(), 1,
-                1, new Date());
+    public EventUserResponse addUser(String userName, String emailAddress, String password, int activeStatus, int roleId) {
+        return saveAndBuildResponse(userName, emailAddress, password, activeStatus, roleId);
     }
 
-    public EventUserResponse AddUser(String UserName,String EmailAddress,String Password,int ActiveStatus,int RoleId) {
+    private EventUserResponse saveAndBuildResponse(String userName, String emailAddress, String password, int activeStatus, int roleId) {
+        // 创建 EventUser 实体对象
         EventUser eventUser = EventUser.builder()
-                .UserName(UserName)
-                .EmailAddress(EmailAddress)
+                .UserName(userName)
+                .EmailAddress(emailAddress)
+                .Password(password)
+                .ActiveStatus(activeStatus)
+                .RoleId(roleId)
                 .CreateDt(new Date())
-                .Password(Password)
-                .ActiveStatus(ActiveStatus)
-                .RoleId(RoleId)
                 .build();
+
+        // 保存到数据库
         userRepository.save(eventUser);
-        return new EventUserResponse(eventUser.getUserId(), eventUser.getUserName(), eventUser.getPassword()
-                , eventUser.getEmailAddress(), 1,
-                1, new Date());
+
+        // 返回不包含密码的 EventUserResponse
+        return EventUserResponse.builder()
+                .UserId(eventUser.getUserId())
+                .UserName(eventUser.getUserName())
+                .EmailAddress(eventUser.getEmailAddress())
+                .ActiveStatus(eventUser.getActiveStatus())
+                .RoleId(eventUser.getRoleId())
+                .CreateDt(eventUser.getCreateDt())
+                .build();
     }
 
-    public void deleteEventUser(int userId)
+
+    public void deleteEventUser(UUID userId)
     {
         userRepository.deleteById(userId);
 
@@ -93,7 +84,7 @@ public class EventUserService {
     }
 
     public boolean ChangePassword(String EmailAddress,
-                                             String Password) {
+                                  String Password) {
 
         try {
             userRepository.ChangePassword(Password, EmailAddress);
@@ -116,13 +107,23 @@ public class EventUserService {
                 eventUser.getRoleId(),userRole.getRoleName(),userRole.getPermission());
     }
 
-    public UserDetailResponse CheckUserLogin(String EmailAddress,String Password)
-    {
-        EventUser eventUser = userRepository.UserLogin(EmailAddress,Password);
-        UserRole userRole = roleRepository.SearchUserRole(eventUser.getRoleId());
-        return new UserDetailResponse(eventUser.getUserId(), eventUser.getUserName(), eventUser.getPassword()
-                , eventUser.getEmailAddress(), eventUser.getActiveStatus(), eventUser.getCreateDt(),
-                eventUser.getRoleId(),userRole.getRoleName(),userRole.getPermission());
+    public LoginResponse CheckUserLogin(String EmailAddress, String Password) {
+        EventUser eventUser = userRepository.UserLogin(EmailAddress, Password);
+
+        // 检查 eventUser 是否为 null
+        if (eventUser == null) {
+            throw new EventUserController.ResourceNotFoundException("User not found or invalid credentials");
+        }
+
+        // 返回 LoginResponse，不包含密码等敏感信息
+        return new LoginResponse(
+                eventUser.getUserId(),
+                eventUser.getUserName(),
+                eventUser.getEmailAddress(),
+                eventUser.getActiveStatus(),
+                eventUser.getRoleId(),
+                eventUser.getCreateDt()
+        );
     }
 
 
@@ -178,5 +179,7 @@ public class EventUserService {
         }
         return found;
     }
+
+
 
 }

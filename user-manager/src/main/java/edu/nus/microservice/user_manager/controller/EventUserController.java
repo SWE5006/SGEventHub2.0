@@ -1,9 +1,9 @@
 package edu.nus.microservice.user_manager.controller;
 
-import edu.nus.microservice.user_manager.dto.EventUserRequest;
-import edu.nus.microservice.user_manager.dto.EventUserResponse;
-import edu.nus.microservice.user_manager.dto.UserDetailResponse;
+import edu.nus.microservice.user_manager.dto.*;
+import edu.nus.microservice.user_manager.model.EventUser;
 import edu.nus.microservice.user_manager.service.EventUserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/user-manager/user")
+@RequestMapping("api/user-manager/user")
 @RequiredArgsConstructor
 public class EventUserController {
 
@@ -24,11 +24,10 @@ public class EventUserController {
 
     @PostMapping (path="/signup")
     @ResponseStatus(value=HttpStatus.CREATED,reason = "Successfully Created")
-    public EventUserResponse createEventUser(@RequestParam String UserName,
-                                             @RequestParam String EmailAddress,
-                                             @RequestParam String Password) {
+    public EventUserResponse createEventUser(@RequestBody EventUserRequest eventUserRequest) {
 
-        boolean found = eventUserService.CheckUserExist(EmailAddress);
+        // 检查用户是否已经存在
+        boolean found = eventUserService.CheckUserExist(eventUserRequest.getEmailAddress());
         if (found) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
@@ -36,30 +35,38 @@ public class EventUserController {
             );
         }
 
-        return eventUserService.SignUpUser(UserName,EmailAddress,Password);
+
+        // 调用 service 层创建用户
+        return eventUserService.createEventUser(eventUserRequest);
 
     }
 
-    @PostMapping (path="/add")
-    @ResponseStatus(value=HttpStatus.CREATED,reason = "Successfully Created")
-    public EventUserResponse AddUser(@RequestParam String UserName,
-                                             @RequestParam String EmailAddress,
-                                             @RequestParam String Password,
-                                     @RequestParam int ActiveStatus,
-                                     @RequestParam int UserRole
-                                            ) {
+    @PostMapping(path = "/add")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Successfully Created")
+    public ResponseEntity<EventUserResponse> addUser(@RequestBody EventUserRequest eventUserRequest) {
 
-        boolean found = eventUserService.CheckUserExist(EmailAddress);
+        // 检查邮箱是否已注册
+        boolean found = eventUserService.CheckUserExist(eventUserRequest.getEmailAddress());
         if (found) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Email address is already registered."
-            );
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(null); // 返回空或一个错误响应
         }
 
-        return eventUserService.AddUser(UserName,EmailAddress,Password,ActiveStatus,UserRole);
+        // 添加用户并返回 EventUserResponse
+        EventUserResponse eventUserResponse = eventUserService.addUser(
+                eventUserRequest.getUserName(),
+                eventUserRequest.getEmailAddress(),
+                eventUserRequest.getPassword(),
+                eventUserRequest.getActiveStatus(),
+                eventUserRequest.getRoleId()
+        );
 
+        // 返回 ResponseEntity，包含 HTTP 状态和用户信息（不包含密码）
+        return new ResponseEntity<>(eventUserResponse, HttpStatus.CREATED);
     }
+
+
 
     @PostMapping(path="/chpassword")
     @ResponseStatus(value = HttpStatus.OK)
@@ -108,7 +115,7 @@ public class EventUserController {
 
     @DeleteMapping(path="/delete/{userid}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEventUser(@PathVariable("id") int userId)throws ResourceNotFoundException {
+    public void deleteEventUser(@PathVariable("id") UUID userId)throws ResourceNotFoundException {
        eventUserService.deleteEventUser(userId);
     }
 
@@ -120,15 +127,22 @@ public class EventUserController {
 
     }
 
-    @GetMapping(path="/login")
+    @PostMapping(path = "/login")
     @ResponseStatus(HttpStatus.OK)
-    public UserDetailResponse LoginUser(@PathVariable("email") String EmailAddress,
-                                        @PathVariable("password") String Password)
-            throws ResourceNotFoundException{
+    public LoginResponse loginUser(@RequestBody LoginRequest loginRequest) throws ResourceNotFoundException {
+        LoginResponse eventUser = eventUserService.CheckUserLogin(loginRequest.getEmailAddress(), loginRequest.getPassword());
 
-        return eventUserService.CheckUserLogin(EmailAddress,Password);
-
+        // 返回不包含密码的 LoginResponse
+        return new LoginResponse(
+                eventUser.getUserId(),
+                eventUser.getUserName(),
+                eventUser.getEmailAddress(),
+                eventUser.getActiveStatus(),
+                eventUser.getRoleId(),
+                eventUser.getCreateDt()
+        );
     }
+
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Resource Not Found")
     public static class ResourceNotFoundException extends RuntimeException {

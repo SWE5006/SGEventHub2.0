@@ -22,4 +22,6 @@ public class UserDetailResponse {
     private String RoleName;
     private String Permission;
 
+    public UserDetailResponse(UUID userId, String userName, String emailAddress, int activeStatus, Date createDt, int roleId, String roleName, String permission) {
+    }
 }

@@ -15,9 +15,11 @@ import java.util.UUID;
 public class EventUserResponse {
     private UUID UserId;
     private String UserName;
-    private String Password;
     private String EmailAddress;
     private int ActiveStatus;
     private int RoleId;
     private Date CreateDt;
+
+    public EventUserResponse(UUID UserId, String userName, String password, String emailAddress, int i, int userRole, Date date) {
+    }
 }
