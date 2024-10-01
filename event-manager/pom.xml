@@ -9,19 +9,7 @@
 		<version>3.3.3</version> <!-- Spring Boot 版本 -->
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+
 	<groupId>edu.nus.microservice</groupId>
 	<artifactId>event-manager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -119,5 +107,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<packaging>jar</packaging>
 </project>

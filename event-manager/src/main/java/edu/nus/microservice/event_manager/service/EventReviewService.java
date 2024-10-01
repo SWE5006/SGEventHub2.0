@@ -1,6 +1,8 @@
 package edu.nus.microservice.event_manager.service;
 
+import edu.nus.microservice.event_manager.dto.EventRequest;
 import edu.nus.microservice.event_manager.dto.EventResponse;
+import edu.nus.microservice.event_manager.dto.EventReviewRequest;
 import edu.nus.microservice.event_manager.dto.EventReviewResponse;
 import edu.nus.microservice.event_manager.model.Event;
 import edu.nus.microservice.event_manager.model.EventReview;
@@ -34,5 +36,28 @@ public class EventReviewService {
                 .rating(eventReview.getRating())
                 .userId(eventReview.getUserId())
                 .build();
+    }
+
+    public EventReviewResponse searchReviewByEventId(UUID eventId)
+    {
+        EventReview eventReview = eventReviewRepository.QueryEventReviewById(eventId);
+
+
+        return new EventReviewResponse(eventReview.getReviewId(),eventReview.getEventId(),
+                eventReview.getUserId(),eventReview.getRating(),eventReview.getComment());
+
+    }
+
+    public EventReviewResponse createEventReview(EventReview reviewRequest) {
+        EventReview eventReview = EventReview.builder()
+                .eventId(reviewRequest.getEventId())
+                .reviewId(reviewRequest.getReviewId())
+                .userId(reviewRequest.getUserId())
+                .rating(reviewRequest.getRating())
+                .comment(reviewRequest.getComment())
+                .build();
+         eventReviewRepository.save(eventReview);
+        return new EventReviewResponse(eventReview.getReviewId(),eventReview.getEventId(),
+                eventReview.getUserId(),eventReview.getRating(),eventReview.getComment());
     }
 }

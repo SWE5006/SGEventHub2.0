@@ -14,6 +14,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class EventReview {
     @Id
     @GeneratedValue
