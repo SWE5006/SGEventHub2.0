@@ -11,7 +11,7 @@ export const eventApi = createApi({
   endpoints: (builder) => ({
     getEventList: builder.query({
       query: () => ({
-        url: "/event/all",
+        url: "api/event-manager/event/all",
         method: "GET",
       }),
     }),
@@ -19,7 +19,7 @@ export const eventApi = createApi({
     // 正确
     getEventDetails: builder.query({
       query: (id) => ({
-        url: `/event/details?eventid=${id}`,
+        url: `api/event-manager/event/details?eventid=${id}`,
         method: "GET",
       }),
     }),
@@ -27,34 +27,34 @@ export const eventApi = createApi({
 
     // getEventForEdit: builder.query({
     //   query: (id) => ({
-    //     url: `/event/edit/${id}`,
+    //     url: `api/event-manager/event/edit/${id}`,
     //     method: "GET",
     //   }),
     // }),
     
     addEvent: builder.mutation({
       query: (payload) => ({
-        url: `/event/create`,
+        url: `api/event-manager/event/create`,
         method: "POST",
         body: payload,
       }),
     }),
     deleteEvent: builder.mutation({
       query: (id) => ({
-        url: `/event/delete/${id}`,
+        url: `api/event-manager/event/delete/${id}`,
         method: "DELETE",
       }),
     }),
     updateEvent: builder.mutation({
       query: (payload) => ({
-        url: `/event/update`,
+        url: `api/event-manager/event/update`,
         method: "POST",
         body: payload,
       }),
     }),
     registerEvent: builder.mutation({
       query: ({ type, eventId, userId }) => ({
-        url: `/event/${type}/${eventId}/${userId}`,
+        url: `api/event-manager/event/${type}/${eventId}/${userId}`,
         method: "GET",
       }),
     }),

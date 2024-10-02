@@ -35,11 +35,11 @@ public class EventUserService {
         );
     }
 
-    public EventUserResponse addUser(String userName, String emailAddress, String password, int activeStatus, int roleId) {
-        return saveAndBuildResponse(userName, emailAddress, password, activeStatus, roleId);
+    public EventUserResponse addUser(String emailAddress, String userName, String password, int activeStatus, int roleId) {
+        return saveAndBuildResponse(emailAddress, userName, password, activeStatus, roleId);
     }
 
-    private EventUserResponse saveAndBuildResponse(String userName, String emailAddress, String password, int activeStatus, int roleId) {
+    private EventUserResponse saveAndBuildResponse(String emailAddress, String userName,  String password, int activeStatus, int roleId) {
         // 创建 EventUser 实体对象
         EventUser eventUser = EventUser.builder()
                 .UserName(userName)
@@ -72,13 +72,13 @@ public class EventUserService {
     }
 
     public EventUserResponse updateEventUser(UUID UserId, String Password, String UserName, String EmailAddress,
-                                             int UserRole) {
+                                             int RoleId) {
 
-        userRepository.UpdateUser(UserId,Password, UserName, EmailAddress,UserRole);
+        userRepository.UpdateUser(UserId,Password, UserName, EmailAddress, RoleId);
 
         return new EventUserResponse(UserId, UserName, Password
                 , EmailAddress, 1,
-                UserRole, new Date());
+                RoleId, new Date());
 
 
     }

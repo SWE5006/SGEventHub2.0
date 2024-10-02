@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/event-manager/register")
+@RequestMapping("api/event-manager/register")
 @RequiredArgsConstructor
 public class EventRegisterController {
 

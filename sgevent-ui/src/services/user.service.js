@@ -11,33 +11,33 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     getUserList: builder.query({
       query: () => ({
-        url: "/user-manager/user/all",
+        url: "api/user-manager/user/all",
         method: "GET",
       }),
     }),
     getUserDetails: builder.query({
       query: (userId) => ({
-        url: `/user-manager/user/${userId}`,
+        url: `api/user-manager/user/${userId}`,
         method: "GET",
       }),
     }),
     updateUser: builder.mutation({
       query: (payload) => ({
-        url: `/user-manager/user/update`,
+        url: `api/user-manager/user/update`,
         method: "POST",
         body: payload,
       }),
     }),
     addUser: builder.mutation({
       query: (payload) => ({
-        url: `/user-manager/user/signup`,
+        url: `api/user-manager/user/signup`,
         method: "POST",
         body: payload,
       }),
     }),
     deleteUser: builder.mutation({
       query: (userId) => ({
-        url: `/user-manager/user/delete/${userId}`,
+        url: `api/user-manager/user/delete/${userId}`,
         method: "DELETE",
       }),
     }),

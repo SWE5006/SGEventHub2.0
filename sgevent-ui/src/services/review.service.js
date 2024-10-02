@@ -11,13 +11,13 @@ export const reviewApi = createApi({
   endpoints: (builder) => ({
     getEventReviews: builder.query({
       query: (eventId) => ({
-        url: `/review/event/${eventId}`,
+        url: `api/event-manager/review/event/${eventId}`,
         method: "GET",
       }),
     }),
     postEventReview: builder.mutation({
       query: ({ eventId, userId, rating, comment }) => ({
-        url: `/review/add`,
+        url: `api/event-manager/review/add`,
         method: "POST",
         body: { eventId, userId, rating, comment },
       }),

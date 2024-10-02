@@ -20,6 +20,6 @@ public class EventUserResponse {
     private int RoleId;
     private Date CreateDt;
 
-    public EventUserResponse(UUID UserId, String userName, String password, String emailAddress, int i, int userRole, Date date) {
+    public EventUserResponse(UUID UserId, String userName, String password, String emailAddress, int i, int RoleId, Date date) {
     }
 }

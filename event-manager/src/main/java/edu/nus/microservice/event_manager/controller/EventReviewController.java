@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/event-manager/review")
+@RequestMapping("api/event-manager/review")
 @RequiredArgsConstructor
 public class EventReviewController {
 
