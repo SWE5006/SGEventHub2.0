@@ -18,6 +18,6 @@ services:
     hostname: event-manager
     container_name: event-manager
     ports:
-      - "8080:8081"
+      - "8081:8080"
 
   
