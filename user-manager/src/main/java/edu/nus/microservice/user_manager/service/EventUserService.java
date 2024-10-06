@@ -107,7 +107,7 @@ public class EventUserService {
                 eventUser.getRoleId(),userRole.getRoleName(),userRole.getPermission());
     }
 
-    public LoginResponse CheckUserLogin(String EmailAddress, String Password) {
+    public EventUserResponse CheckUserLogin(String EmailAddress, String Password) {
         EventUser eventUser = userRepository.UserLogin(EmailAddress, Password);
 
         // 检查 eventUser 是否为 null
@@ -116,7 +116,7 @@ public class EventUserService {
         }
 
         // 返回 LoginResponse，不包含密码等敏感信息
-        return new LoginResponse(
+        return new EventUserResponse(
                 eventUser.getUserId(),
                 eventUser.getUserName(),
                 eventUser.getEmailAddress(),

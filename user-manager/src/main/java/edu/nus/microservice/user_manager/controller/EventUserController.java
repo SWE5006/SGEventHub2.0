@@ -3,6 +3,8 @@ package edu.nus.microservice.user_manager.controller;
 import edu.nus.microservice.user_manager.dto.*;
 import edu.nus.microservice.user_manager.model.EventUser;
 import edu.nus.microservice.user_manager.service.EventUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +23,7 @@ public class EventUserController {
 
     private final EventUserService eventUserService;
 
-
+    private final Logger log = LoggerFactory.getLogger(EventUserController.class);
     @PostMapping (path="/signup")
     @ResponseStatus(value=HttpStatus.CREATED,reason = "Successfully Created")
     public EventUserResponse createEventUser(@RequestBody EventUserRequest eventUserRequest) {
@@ -29,6 +31,7 @@ public class EventUserController {
         // 检查用户是否已经存在
         boolean found = eventUserService.CheckUserExist(eventUserRequest.getEmailAddress());
         if (found) {
+            log.info("User is Already Exist{}", eventUserRequest.getEmailAddress());
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Email address is already registered."
@@ -48,6 +51,7 @@ public class EventUserController {
         // 检查邮箱是否已注册
         boolean found = eventUserService.CheckUserExist(eventUserRequest.getEmailAddress());
         if (found) {
+            log.info("Event User is Already Exist{}", eventUserRequest.getEmailAddress());
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(null); // 返回空或一个错误响应
@@ -75,9 +79,13 @@ public class EventUserController {
         boolean updated = eventUserService.ChangePassword(EmailAddress,Password);
         if (updated)
         {
+            log.info("Password has been changed for:{}", EmailAddress);
             return "Updated";
         }
-        else {throw new ResponseStatusException(
+        else {
+            log.error("Error in updating password for:{}", EmailAddress);
+            throw new ResponseStatusException(
+
                 HttpStatus.NOT_MODIFIED,
                 "Update Error"
         );}
@@ -104,6 +112,7 @@ public class EventUserController {
     @GetMapping (path="/all")
     @ResponseStatus(HttpStatus.OK)
     public List<EventUserResponse> getAllEventUsers() {
+        log.info("Get List of All the Event User");
         return eventUserService.getAllEventUsers();
     }
 
@@ -116,24 +125,25 @@ public class EventUserController {
     @DeleteMapping(path="/delete/{userid}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteEventUser(@PathVariable("id") UUID userId)throws ResourceNotFoundException {
+        log.info("Event User is Deleted:{}", userId);
        eventUserService.deleteEventUser(userId);
     }
 
     @GetMapping(path="/search/{userid}")
     @ResponseStatus(HttpStatus.OK)
     public UserDetailResponse searchEventUser(@PathVariable("id") UUID userId) throws ResourceNotFoundException{
-
+        log.info("User Found:{}", userId);
             return eventUserService.getEventUserById(userId);
 
     }
 
     @PostMapping(path = "/login")
     @ResponseStatus(HttpStatus.OK)
-    public LoginResponse loginUser(@RequestBody LoginRequest loginRequest) throws ResourceNotFoundException {
-        LoginResponse eventUser = eventUserService.CheckUserLogin(loginRequest.getEmailAddress(), loginRequest.getPassword());
-
+    public EventUserResponse loginUser(@RequestBody EventUserRequest loginRequest) throws ResourceNotFoundException {
+        EventUserResponse eventUser = eventUserService.CheckUserLogin(loginRequest.getEmailAddress(), loginRequest.getPassword());
+        log.info("User Login Successfully:{}|{}", loginRequest.getEmailAddress(), loginRequest.getUserName());
         // 返回不包含密码的 LoginResponse
-        return new LoginResponse(
+        return new EventUserResponse(
                 eventUser.getUserId(),
                 eventUser.getUserName(),
                 eventUser.getEmailAddress(),
