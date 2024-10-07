@@ -4,7 +4,7 @@ services:
   user-manager:
     image: user-manager:2.0
     build:
-      context: ./
+      context: ../user-manager
       dockerfile: Dockerfile
     hostname: user-manager
     container_name: user-manager
@@ -13,11 +13,11 @@ services:
   event-manager:
     image: event-manager:2.0
     build:
-      context: ./
+      context: ../event-manager
       dockerfile: Dockerfile
     hostname: event-manager
     container_name: event-manager
     ports:
-      - "8080:8080"
+      - "8081:8080"
 
   
