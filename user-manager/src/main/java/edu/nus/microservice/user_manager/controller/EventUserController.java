@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
+import edu.nus.microservice.user_manager.config.WebConfig;
 import java.util.List;
 import java.util.UUID;
 
@@ -113,15 +113,15 @@ public class EventUserController {
         return eventUserService.getAllEventUsersRole();
     }
 
-    @DeleteMapping(path="/delete/{userid}")
+    @DeleteMapping(path="/delete/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEventUser(@PathVariable("id") UUID userId)throws ResourceNotFoundException {
+    public void deleteEventUser(@PathVariable("userId") UUID userId)throws ResourceNotFoundException {
        eventUserService.deleteEventUser(userId);
     }
 
-    @GetMapping(path="/search/{userid}")
+    @GetMapping(path="/search/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDetailResponse searchEventUser(@PathVariable("id") UUID userId) throws ResourceNotFoundException{
+    public UserDetailResponse searchEventUser(@PathVariable("userId") UUID userId) throws ResourceNotFoundException{
 
             return eventUserService.getEventUserById(userId);
 

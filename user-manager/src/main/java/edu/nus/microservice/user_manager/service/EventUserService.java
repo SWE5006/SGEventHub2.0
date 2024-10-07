@@ -98,14 +98,33 @@ public class EventUserService {
 
     }
 
-    public UserDetailResponse getEventUserById(UUID userId)
-    {
+    public UserDetailResponse getEventUserById(UUID userId) throws EventUserController.ResourceNotFoundException {
+        // 查找用户
         EventUser eventUser = userRepository.SearchEventUser(userId);
+        if (eventUser == null) {
+            throw new EventUserController.ResourceNotFoundException("User not found with id: " + userId);
+        }
+
+        // 查找角色
         UserRole userRole = roleRepository.SearchUserRole(eventUser.getRoleId());
-        return new UserDetailResponse(eventUser.getUserId(), eventUser.getUserName(), eventUser.getPassword()
-                , eventUser.getEmailAddress(), eventUser.getActiveStatus(), eventUser.getCreateDt(),
-                eventUser.getRoleId(),userRole.getRoleName(),userRole.getPermission());
+        if (userRole == null) {
+            throw new EventUserController.ResourceNotFoundException("Role not found for user with id: " + userId);
+        }
+
+        // 返回包含用户和角色信息的 UserDetailResponse 对象
+        return new UserDetailResponse(
+                eventUser.getUserId(),
+                eventUser.getUserName(),
+                eventUser.getPassword(),
+                eventUser.getEmailAddress(),
+                eventUser.getActiveStatus(),
+                eventUser.getCreateDt(),
+                eventUser.getRoleId(),
+                userRole.getRoleName(),
+                userRole.getPermission()
+        );
     }
+
 
     public LoginResponse CheckUserLogin(String EmailAddress, String Password) {
         EventUser eventUser = userRepository.UserLogin(EmailAddress, Password);

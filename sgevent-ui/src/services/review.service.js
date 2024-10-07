@@ -17,7 +17,7 @@ export const reviewApi = createApi({
     }),
     postEventReview: builder.mutation({
       query: ({ eventId, userId, rating, comment }) => ({
-        url: `api/event-manager/review/add`,
+        url: "api/event-manager/review/add",
         method: "POST",
         body: { eventId, userId, rating, comment },
       }),

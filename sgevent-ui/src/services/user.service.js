@@ -17,20 +17,20 @@ export const userApi = createApi({
     }),
     getUserDetails: builder.query({
       query: (userId) => ({
-        url: `api/user-manager/user/${userId}`,
+        url: `api/user-manager/user/search/${userId}`,
         method: "GET",
       }),
     }),
     updateUser: builder.mutation({
       query: (payload) => ({
-        url: `api/user-manager/user/update`,
+        url: "api/user-manager/user/update",
         method: "POST",
         body: payload,
       }),
     }),
     addUser: builder.mutation({
       query: (payload) => ({
-        url: `api/user-manager/user/signup`,
+        url: "api/user-manager/user/signup",
         method: "POST",
         body: payload,
       }),

@@ -10,7 +10,7 @@ export const roleApi = createApi({
   endpoints: (builder) => ({
     getRoleList: builder.query({
       query: () => ({
-        url: "/user-manager/eventrole/all",
+        url: "api/user-manager/eventrole/all",
         method: "GET",
       }),
     }),

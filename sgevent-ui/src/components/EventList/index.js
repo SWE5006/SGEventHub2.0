@@ -27,7 +27,7 @@ const EventList = ({ isAdmin }) => {
 
    //正确
   const onDetails = (eventId) => {
-    navigate(`/events/details?${eventId}`);
+    navigate(`/events/details?id=${eventId}`);
   };
   
 

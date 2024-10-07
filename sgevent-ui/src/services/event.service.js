@@ -34,7 +34,7 @@ export const eventApi = createApi({
     
     addEvent: builder.mutation({
       query: (payload) => ({
-        url: `api/event-manager/event/create`,
+        url: "api/event-manager/event/create",
         method: "POST",
         body: payload,
       }),
@@ -47,7 +47,7 @@ export const eventApi = createApi({
     }),
     updateEvent: builder.mutation({
       query: (payload) => ({
-        url: `api/event-manager/event/update`,
+        url: "api/event-manager/event/update",
         method: "POST",
         body: payload,
       }),
