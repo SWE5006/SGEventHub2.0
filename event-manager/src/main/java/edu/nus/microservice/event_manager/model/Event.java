@@ -27,5 +27,6 @@ public class Event {
   private int eventCapacity;
   private String eventOwnerId;
   private String eventStatus;
+  @Column(columnDefinition="LONGTEXT")
   private String eventCover;
 }
