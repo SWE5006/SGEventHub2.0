@@ -110,7 +110,7 @@ public class EventUserService {
         if (userRole == null) {
 
                 throw new RuntimeException("Role not found for user with id: " + userId);
-            
+
         }
 
         // 返回包含用户和角色信息的 UserDetailResponse 对象
