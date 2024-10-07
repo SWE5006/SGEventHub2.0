@@ -108,11 +108,9 @@ public class EventUserService {
         // 查找角色
         UserRole userRole = roleRepository.SearchUserRole(eventUser.getRoleId());
         if (userRole == null) {
-            try {
-                throw new Exception("Role not found for user with id: " + userId);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+
+                throw new RuntimeException("Role not found for user with id: " + userId);
+            
         }
 
         // 返回包含用户和角色信息的 UserDetailResponse 对象
@@ -135,11 +133,9 @@ public class EventUserService {
 
         // 检查 eventUser 是否为 null
         if (eventUser == null) {
-            try {
-                throw new Exception("User not found or invalid credentials" );
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+
+                throw new RuntimeException("User not found or invalid credentials");
+
 
         }
 
