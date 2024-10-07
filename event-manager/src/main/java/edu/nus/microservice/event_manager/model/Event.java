@@ -27,5 +27,5 @@ public class Event {
   private int eventCapacity;
   private String eventOwnerId;
   private String eventStatus;
-  private String eventCover;
+  private StringBuffer eventCover;
 }
