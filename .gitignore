@@ -25,3 +25,5 @@ replay_pid*
 .vscode/settings.json
 /.idea
 .idea/compiler.xml
+event-manager/logs/app.log.2024-10-06.0.gz
+user-manager/logs/app.log.2024-10-06.0.gz
