@@ -14,14 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
-@RequestMapping("api/event-manager/register")
+@RequestMapping("/api/eventregister")
 @RequiredArgsConstructor
 public class EventRegisterController {
 
     private final EventRegisterationService registrationService;
     private final Logger log = LoggerFactory.getLogger(EventRegisterController.class);
     @GetMapping(path="/all")
-    @ResponseStatus(HttpStatus.OK)
     public List<EventRegisterResponse> getAllEventRegister() {
 
         log.info("Getting All the Event Registration");

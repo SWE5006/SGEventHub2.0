@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/event-manager/review")
+@RequestMapping("/api/review")
 @RequiredArgsConstructor
 
 public class EventReviewController {
@@ -26,7 +26,6 @@ public class EventReviewController {
     private final EventReviewService reviewService;
     private final Logger log = LoggerFactory.getLogger(EventReviewController.class);
     @GetMapping(path="/all")
-    @ResponseStatus(HttpStatus.OK)
     public List<EventReviewResponse> getAllEventReview() {
 
         log.info("Getting All the Event Review");
@@ -34,7 +33,6 @@ public class EventReviewController {
     }
 
     @GetMapping("/{eventid}")
-    @ResponseStatus(HttpStatus.OK)
     public EventReviewResponse searchEventUser(@PathVariable("eventid") UUID eventid) {
         log.info("Event Review by Id:{}", eventid);
         return reviewService.searchReviewByEventId(eventid);

@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RolePermissionResponse {
-    private int PermissionId;
+    private UUID PermissionId;
     private String RoleName;
     private String Permissions;
 }

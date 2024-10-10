@@ -14,21 +14,19 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/event-manager/event")
+@RequestMapping("/api/event")
 @RequiredArgsConstructor
 public class EventController {
 
     private final EventService eventService;
     private final Logger log = LoggerFactory.getLogger(EventController.class);
     @GetMapping("/{title}")
-    @ResponseStatus(HttpStatus.OK)
     public EventResponse searchEventUser(@PathVariable("title") String Title) {
         log.info("Get Event by Title: {}", Title);
         return eventService.searchEventByTitle(Title);
     }
 
     @GetMapping("/{eventid}")
-    @ResponseStatus(HttpStatus.OK)
     public EventResponse searchEventUser(@PathVariable("eventid") UUID eventid) {
         log.info("Returning Event:{}", eventid);
         return eventService.searchEventById(eventid);
@@ -42,7 +40,6 @@ public class EventController {
     }
 
     @GetMapping (path="/all")
-    @ResponseStatus(HttpStatus.OK)
     public List<EventResponse> getAllEvents() {
         log.info("All Event Listing is Called");
         return eventService.getAllEvents();

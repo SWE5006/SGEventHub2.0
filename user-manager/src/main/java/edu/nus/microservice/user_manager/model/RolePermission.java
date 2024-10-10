@@ -22,7 +22,7 @@ import java.util.UUID;
 public class RolePermission {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int PermissionId;
+    private UUID PermissionId;
     private String RoleName;
     private String Permissions;
 }
