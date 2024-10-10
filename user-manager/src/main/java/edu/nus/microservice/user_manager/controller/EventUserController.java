@@ -52,6 +52,7 @@ public class EventUserController {
                     HttpStatus.NOT_MODIFIED,
                     "User Already Exist"
             );}
+        else eventUserService.createEventUser(eventUserRequest);
 
     }
 
