@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping("/api/user-manager/eventrole")
 @RequiredArgsConstructor
 public class UserRoleController {
 

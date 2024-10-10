@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("api/user-manager/user")
 @RequiredArgsConstructor
 public class EventUserController {
 
@@ -23,6 +23,7 @@ public class EventUserController {
 
 
     @PostMapping (path="/signup")
+    @ResponseStatus(value=HttpStatus.CREATED,reason = "Successfully Created")
     public EventUserResponse createEventUser(@RequestBody EventUserRequest eventUserRequest) {
 
         // 检查用户是否已经存在
@@ -41,6 +42,7 @@ public class EventUserController {
     }
 
     @PostMapping(path = "/add")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Successfully Created")
     public ResponseEntity<EventUserResponse> addUser(@RequestBody EventUserRequest eventUserRequest) {
 
         // 检查邮箱是否已注册
@@ -67,6 +69,7 @@ public class EventUserController {
 
 
     @PostMapping(path="/chpassword")
+    @ResponseStatus(value = HttpStatus.OK)
     public String ChangePassword(@RequestParam String EmailAddress,
                                              @RequestParam String Password) {
         boolean updated = eventUserService.ChangePassword(EmailAddress,Password);
@@ -82,6 +85,7 @@ public class EventUserController {
 
 
     @PostMapping(path="/update")
+    @ResponseStatus(value = HttpStatus.OK, reason = "Password Successfully Updated")
     public EventUserResponse UpdateEventUser(@RequestBody EventUserRequest eventUserRequest) {
         try {
             return eventUserService.updateEventUser(eventUserRequest.getUserId()
@@ -98,21 +102,25 @@ public class EventUserController {
     }
 
     @GetMapping (path="/all")
+    @ResponseStatus(HttpStatus.OK)
     public List<EventUserResponse> getAllEventUsers() {
         return eventUserService.getAllEventUsers();
     }
 
     @GetMapping (path="/allwrole")
+    @ResponseStatus(HttpStatus.OK)
     public List<UserDetailResponse> getAllEventUsersWithRole() {
         return eventUserService.getAllEventUsersRole();
     }
 
     @DeleteMapping(path="/delete/{userId}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteEventUser(@PathVariable("userId") UUID userId)throws ResourceNotFoundException {
        eventUserService.deleteEventUser(userId);
     }
 
     @GetMapping(path="/search/{userId}")
+    @ResponseStatus(HttpStatus.OK)
     public UserDetailResponse searchEventUser(@PathVariable("userId") UUID userId) throws ResourceNotFoundException{
 
             return eventUserService.getEventUserById(userId);
@@ -120,6 +128,7 @@ public class EventUserController {
     }
 
     @PostMapping(path = "/login")
+    @ResponseStatus(HttpStatus.OK)
     public LoginResponse loginUser(@RequestBody LoginRequest loginRequest) throws ResourceNotFoundException {
         LoginResponse eventUser = eventUserService.CheckUserLogin(loginRequest.getEmailAddress(), loginRequest.getPassword());
 

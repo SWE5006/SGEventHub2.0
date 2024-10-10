@@ -6,16 +6,16 @@
     </appender>
 
 
-    <!-- appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
         <file>logs/app.log</file>
         <append>true</append>
         <encoder>
             <pattern>%d [%thread] %-5level  %logger{35} - %msg%n</pattern>
         </encoder>
-    </appender -->
+    </appender>
 
     <root level="INFO">
-        <!-- appender-ref ref="fileAppender" / -->
+        <appender-ref ref="fileAppender" />
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
