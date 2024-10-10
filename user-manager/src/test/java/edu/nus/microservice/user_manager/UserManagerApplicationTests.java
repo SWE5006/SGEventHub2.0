@@ -55,7 +55,7 @@ class UserManagerApplicationTests {
 
 		when(userRepository.findAll()).thenReturn(allEventUser);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-				"/api/user-manager/user/all").accept(
+				"/api/user/all").accept(
 				MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		assertNotNull(result);

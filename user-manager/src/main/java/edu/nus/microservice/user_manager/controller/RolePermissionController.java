@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user-manager/user/permission")
+@RequestMapping("/api/permission")
 @RequiredArgsConstructor
 public class RolePermissionController {
     private final RolePermissionService rolePermissionService;
@@ -23,9 +23,7 @@ public class RolePermissionController {
         rolePermissionService.createRolePermission(rolePermissionRequest);
     }
 
-
     @GetMapping(path="/all")
-    @ResponseStatus(HttpStatus.OK)
     public List<RolePermissionResponse> getAllPermission() {
         return rolePermissionService.getAllRolePermission();
     }

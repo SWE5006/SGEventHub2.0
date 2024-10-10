@@ -71,14 +71,12 @@ public class EventUserService {
 
     }
 
-    public EventUserResponse updateEventUser(UUID UserId, String Password, String UserName, String EmailAddress,
+    public int updateEventUser(UUID UserId, String Password, String UserName, String EmailAddress,
                                              int RoleId) {
 
-        userRepository.UpdateUser(UserId,Password, UserName, EmailAddress, RoleId);
+       return userRepository.UpdateUser(UserId,Password, UserName, EmailAddress, RoleId);
 
-        return new EventUserResponse(UserId, UserName, Password
-                , EmailAddress, 1,
-                RoleId, new Date());
+
 
 
     }

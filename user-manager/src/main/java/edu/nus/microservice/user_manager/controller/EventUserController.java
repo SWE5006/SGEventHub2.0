@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/user-manager/user")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class EventUserController {
 
@@ -23,7 +23,6 @@ public class EventUserController {
 
 
     @PostMapping (path="/signup")
-    @ResponseStatus(value=HttpStatus.CREATED,reason = "Successfully Created")
     public EventUserResponse createEventUser(@RequestBody EventUserRequest eventUserRequest) {
 
         // 检查用户是否已经存在
@@ -42,40 +41,29 @@ public class EventUserController {
     }
 
     @PostMapping(path = "/add")
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Successfully Created")
-    public ResponseEntity<EventUserResponse> addUser(@RequestBody EventUserRequest eventUserRequest) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addUser(@RequestBody EventUserRequest eventUserRequest) {
 
         // 检查邮箱是否已注册
         boolean found = eventUserService.CheckUserExist(eventUserRequest.getEmailAddress());
-        if (found) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(null); // 返回空或一个错误响应
-        }
 
-        // 添加用户并返回 EventUserResponse
-        EventUserResponse eventUserResponse = eventUserService.addUser(
-                eventUserRequest.getUserName(),
-                eventUserRequest.getEmailAddress(),
-                eventUserRequest.getPassword(),
-                eventUserRequest.getActiveStatus(),
-                eventUserRequest.getRoleId()
-        );
+        if (found){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_MODIFIED,
+                    "User Already Exist"
+            );}
 
-        // 返回 ResponseEntity，包含 HTTP 状态和用户信息（不包含密码）
-        return new ResponseEntity<>(eventUserResponse, HttpStatus.CREATED);
     }
 
 
 
     @PostMapping(path="/chpassword")
-    @ResponseStatus(value = HttpStatus.OK)
     public String ChangePassword(@RequestParam String EmailAddress,
                                              @RequestParam String Password) {
         boolean updated = eventUserService.ChangePassword(EmailAddress,Password);
         if (updated)
         {
-            return "Updated";
+            return "Password Changed";
         }
         else {throw new ResponseStatusException(
                 HttpStatus.NOT_MODIFIED,
@@ -85,10 +73,10 @@ public class EventUserController {
 
 
     @PostMapping(path="/update")
-    @ResponseStatus(value = HttpStatus.OK, reason = "Password Successfully Updated")
-    public EventUserResponse UpdateEventUser(@RequestBody EventUserRequest eventUserRequest) {
+    @ResponseStatus(HttpStatus.OK)
+    public void UpdateEventUser(@RequestBody EventUserRequest eventUserRequest) {
         try {
-            return eventUserService.updateEventUser(eventUserRequest.getUserId()
+             eventUserService.updateEventUser(eventUserRequest.getUserId()
                     , eventUserRequest.getPassword(), eventUserRequest.getUserName(),
                     eventUserRequest.getEmailAddress(), eventUserRequest.getRoleId());
         }
@@ -102,13 +90,11 @@ public class EventUserController {
     }
 
     @GetMapping (path="/all")
-    @ResponseStatus(HttpStatus.OK)
     public List<EventUserResponse> getAllEventUsers() {
         return eventUserService.getAllEventUsers();
     }
 
     @GetMapping (path="/allwrole")
-    @ResponseStatus(HttpStatus.OK)
     public List<UserDetailResponse> getAllEventUsersWithRole() {
         return eventUserService.getAllEventUsersRole();
     }
@@ -120,7 +106,6 @@ public class EventUserController {
     }
 
     @GetMapping(path="/search/{userId}")
-    @ResponseStatus(HttpStatus.OK)
     public UserDetailResponse searchEventUser(@PathVariable("userId") UUID userId) throws ResourceNotFoundException{
 
             return eventUserService.getEventUserById(userId);
@@ -128,7 +113,6 @@ public class EventUserController {
     }
 
     @PostMapping(path = "/login")
-    @ResponseStatus(HttpStatus.OK)
     public LoginResponse loginUser(@RequestBody LoginRequest loginRequest) throws ResourceNotFoundException {
         LoginResponse eventUser = eventUserService.CheckUserLogin(loginRequest.getEmailAddress(), loginRequest.getPassword());
 

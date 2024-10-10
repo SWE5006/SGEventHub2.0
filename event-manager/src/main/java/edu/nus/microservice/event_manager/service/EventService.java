@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -82,5 +83,11 @@ public class EventService {
                 sgevent.getEventEndDt(),sgevent.getEventPlace(),sgevent.getEventCapacity(),
                 sgevent.getEventOwnerId(),sgevent.getEventStatus(),sgevent.getEventCover());
 
+    }
+
+    public  int UpdateEvent( UUID eventId, String eventTitle, String eventDesc, String eventCover, String eventPlace,
+                             Date eventStartDt, Date eventEndDt, int eventCapacity)
+    {
+        return eventRepository.UpdateEvent( eventId, eventTitle, eventDesc, eventCover, eventPlace, eventStartDt, eventEndDt,eventCapacity);
     }
 }
