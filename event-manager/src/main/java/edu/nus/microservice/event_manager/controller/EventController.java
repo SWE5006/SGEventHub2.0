@@ -16,23 +16,31 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/event")
+@RequestMapping("/api/event-manager/event/")
 @RequiredArgsConstructor
 public class EventController {
 
     private final EventService eventService;
     private final Logger log = LoggerFactory.getLogger(EventController.class);
-    @GetMapping("/{title}")
+    @GetMapping(path="/{title}")
     public EventResponse searchEventUser(@PathVariable("title") String Title) {
         log.info("Get Event by Title: {}", Title);
         return eventService.searchEventByTitle(Title);
     }
 
-    @GetMapping("/{eventid}")
-    public EventResponse searchEventUser(@PathVariable("eventid") UUID eventid) {
-        log.info("Returning Event:{}", eventid);
-        return eventService.searchEventById(eventid);
+
+    @GetMapping("/details")
+    public EventResponse searchEventById(@RequestParam("eventid") UUID eventId) {
+        if (eventId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event ID cannot be null");
+        }
+        log.info("Returning Event: {}", eventId);
+        return eventService.searchEventById(eventId);
     }
+
+
+    //10-14修改
+
 
     @PostMapping (path="/create")
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,12 +55,20 @@ public class EventController {
         return eventService.getAllEvents();
     }
 
-    @DeleteMapping(path="/delete/{eventid}")
+    //修改后端路径定义和匹配问题：
+    // 在 EventController 中，/details/{eventid} 使用了 UUID 作为路径参数，
+    // 但是在前端调用时，你使用了 query string 参数（如 ?id=${eventId}），而不是路径参数。
+
+    @DeleteMapping("/delete")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEventUser(@PathVariable("eventid") UUID eventid) {
-        log.info("Delete Event by Id:{}", eventid);
-        eventService.deleteEventbyId(eventid);
+    public void deleteEventUser(@RequestParam("eventid") UUID eventId) {
+        if (eventId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event ID cannot be null");
+        }
+        log.info("Delete Event by Id: {}", eventId);
+        eventService.deleteEventbyId(eventId);
     }
+
 
     @PostMapping(path = "/update")
     @ResponseStatus(HttpStatus.OK) // Map ONLY POST Requests

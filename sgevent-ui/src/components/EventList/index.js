@@ -21,13 +21,13 @@ const EventList = ({ isAdmin }) => {
 
   //正确
   const onEdit = (eventId) => {
-    navigate(`/events/edit?id=${eventId}`);
+    navigate(`/events/edit?eventid=${eventId}`);
   };
   
 
    //正确
   const onDetails = (eventId) => {
-    navigate(`/events/details?id=${eventId}`);
+    navigate(`/events/details?eventid=${eventId}`);
   };
   
 

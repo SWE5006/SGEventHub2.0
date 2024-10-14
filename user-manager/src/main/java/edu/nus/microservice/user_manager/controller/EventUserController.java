@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/user-manager/user")
 @RequiredArgsConstructor
 public class EventUserController {
 
@@ -40,22 +40,29 @@ public class EventUserController {
 
     }
 
+    // 管理员添加用户
     @PostMapping(path = "/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addUser(@RequestBody EventUserRequest eventUserRequest) {
+    public EventUserResponse addUser(@RequestBody EventUserRequest eventUserRequest) {
 
-        // 检查邮箱是否已注册
+        // 检查用户是否已经存在
         boolean found = eventUserService.CheckUserExist(eventUserRequest.getEmailAddress());
-
-        if (found){
+        if (found) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_MODIFIED,
-                    "User Already Exist"
-            );}
-        else eventUserService.createEventUser(eventUserRequest);
+                    HttpStatus.BAD_REQUEST,
+                    "Email address is already registered."
+            );
+        }
 
+        // 管理员创建用户，传递更多自定义参数（activeStatus 和 roleId）
+        return eventUserService.addUser(
+                eventUserRequest.getEmailAddress(),
+                eventUserRequest.getUserName(),
+                eventUserRequest.getPassword(),
+                eventUserRequest.getActiveStatus(),  // 管理员自定义的 activeStatus
+                eventUserRequest.getRoleId()  // 管理员自定义的 roleId
+        );
     }
-
 
 
     @PostMapping(path="/chpassword")

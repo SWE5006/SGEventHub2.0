@@ -30,6 +30,7 @@ public interface EventRepository extends CrudRepository<Event, UUID> {
     int eventCapacity
   );
 
+
   @Query(
     value = "select event.* from event where event_title like %?1%",
     nativeQuery = true

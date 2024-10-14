@@ -55,9 +55,9 @@ public class EventService {
 
     }
 
-    public void deleteEventbyId(UUID eventid)
+    public void deleteEventbyId(UUID eventId)
     {
-        eventRepository.deleteById(eventid);
+        eventRepository.deleteById(eventId);
 
     }
 

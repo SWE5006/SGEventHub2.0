@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 
 export default function EditEvent({ location }) {
   const params = new URLSearchParams(location.search);
-  const eventId = params.get("id");
+  const eventId = params.get("eventid");
 
   const { data, error, isFetching, refetch } = useGetEventDetailsQuery(eventId);
   const [updateEvent, result] = useUpdateEventMutation();

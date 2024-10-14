@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
-@RequestMapping("/api/eventregister")
+@RequestMapping("/api/event-manager/eventregister")
 @RequiredArgsConstructor
 public class EventRegisterController {
 
@@ -27,24 +27,24 @@ public class EventRegisterController {
     }
 
 
-    @GetMapping(path = "/register/{eventid}/{userid}")
+    @GetMapping(path = "/register/{eventId}/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
     public EventRegisterResponse RegisterEvent(
-            @PathVariable("eventid") UUID eventid,
-            @PathVariable("userid") UUID userid
+            @PathVariable("eventId") UUID eventId,
+            @PathVariable("userId") UUID userId
     ) {
-        log.info("Getting event register information:{}|{}", eventid, userid);
-    return registrationService.registerEvent(userid,eventid);
+        log.info("Getting event register information:{}|{}", eventId, userId);
+    return registrationService.registerEvent(userId,eventId);
 
     }
 
-    @GetMapping(path = "/unregister/{eventid}/{userid}")
+    @GetMapping(path = "/unregister/{eventId}/{userId}")
     public EventRegisterResponse UnRegisterEvent(
-            @PathVariable("eventid") UUID eventid,
-            @PathVariable("userid") UUID userid
+            @PathVariable("eventId") UUID eventId,
+            @PathVariable("userId") UUID userId
     ) {
-        log.info("Getting event un register information:{}|{}", eventid, userid);
-        return registrationService.unregisterEvent(userid,eventid);
+        log.info("Getting event un register information:{}|{}", eventId, userId);
+        return registrationService.unregisterEvent(userId,eventId);
 
     }
 

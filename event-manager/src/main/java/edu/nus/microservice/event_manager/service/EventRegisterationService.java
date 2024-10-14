@@ -33,7 +33,7 @@ public class EventRegisterationService {
                 .build();
     }
 
-    public EventRegisterResponse registerEvent(UUID UserId,UUID eventId)
+    public EventRegisterResponse registerEvent(UUID userId,UUID eventId)
     {
        // Event sgevent = eventRepository.SearchEventByTitle();
 
@@ -42,7 +42,7 @@ public class EventRegisterationService {
 
     }
 
-    public EventRegisterResponse unregisterEvent(UUID UserId,UUID eventId)
+    public EventRegisterResponse unregisterEvent(UUID userId,UUID eventId)
     {
         // Event sgevent = eventRepository.SearchEventByTitle();
 

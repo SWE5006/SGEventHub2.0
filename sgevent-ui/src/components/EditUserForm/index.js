@@ -99,7 +99,7 @@ export default function EditUserForm({
             setUser((prev) => ({ ...prev, roleId: event.target.value }));
           }}
         >
-          {roleList.map((option) => (
+          {roleList?.map((option) => (
             <MenuItem key={option.roleId} value={option.roleId}>
               {option.roleName}
             </MenuItem>
