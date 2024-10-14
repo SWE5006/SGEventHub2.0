@@ -30,7 +30,7 @@ public class EventController {
 
 
     @GetMapping("/details")
-    public EventResponse searchEventById(@RequestParam("eventid") UUID eventId) {
+    public EventResponse searchEventById(@RequestParam("eventId") UUID eventId) {
         if (eventId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event ID cannot be null");
         }
@@ -56,12 +56,12 @@ public class EventController {
     }
 
     //修改后端路径定义和匹配问题：
-    // 在 EventController 中，/details/{eventid} 使用了 UUID 作为路径参数，
+    // 在 EventController 中，/details/{eventId} 使用了 UUID 作为路径参数，
     // 但是在前端调用时，你使用了 query string 参数（如 ?id=${eventId}），而不是路径参数。
 
     @DeleteMapping("/delete")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEventUser(@RequestParam("eventid") UUID eventId) {
+    public void deleteEventUser(@RequestParam("eventId") UUID eventId) {
         if (eventId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event ID cannot be null");
         }

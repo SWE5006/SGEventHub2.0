@@ -33,27 +33,53 @@ public class EventService {
     }
 
     public EventResponse createEvent(EventRequest eventRequest) {
-        Event sgevent = Event.builder()
-                .eventId(eventRequest.getEventId())
+        // 如果 eventId 为空，自动生成 UUID
+        UUID eventId = (eventRequest.getEventId() == null) ? UUID.randomUUID() : eventRequest.getEventId();
 
-                .eventCreateDt(eventRequest.getEventCreateDt())
+        // 自动设置 CreateDt
+        Date createDt = new Date();
+
+        // 设置 eventOwnerId, 假设从上下文获取当前用户的 ID
+        // 你需要根据你的安全实现获取当前登录用户的 ID
+//        String eventOwnerId = getCurrentUserId(); // 示例方法，实际实现需替换
+
+        // 如果 eventStatus 为空，默认设置为 "open"
+        String eventStatus = (eventRequest.getEventStatus() == null) ? "open" : eventRequest.getEventStatus();
+
+        // 创建 Event 实体对象
+        Event sgevent = Event.builder()
+                .eventId(eventId)
+                .eventCreateDt(createDt)
                 .eventCover(eventRequest.getEventCover())
                 .eventCapacity(eventRequest.getEventCapacity())
-                .eventOwnerId(eventRequest.getEventOwnerId())
+//                .eventOwnerId(eventOwnerId)
                 .eventPlace(eventRequest.getEventPlace())
                 .eventStartDt(eventRequest.getEventStartDt())
-                .eventStatus(eventRequest.getEventStatus())
+                .eventStatus(eventStatus)
                 .eventTitle(eventRequest.getEventTitle())
                 .eventEndDt(eventRequest.getEventEndDt())
                 .eventDesc(eventRequest.getEventDesc())
-
                 .build();
-        eventRepository.save(sgevent);
-        return new EventResponse(eventRequest.getEventId(),eventRequest.getEventTitle(),eventRequest.getEventDesc(),
-        eventRequest.getEventCreateDt(),eventRequest.getEventStartDt(),eventRequest.getEventEndDt(),eventRequest.getEventPlace(),
-                eventRequest.getEventCapacity(),eventRequest.getEventOwnerId(),eventRequest.getEventStatus(),eventRequest.getEventCover());
 
+        // 保存到数据库
+        eventRepository.save(sgevent);
+
+        // 返回 EventResponse
+        return new EventResponse(
+                sgevent.getEventId(),
+                sgevent.getEventTitle(),
+                sgevent.getEventDesc(),
+                sgevent.getEventCreateDt(),
+                sgevent.getEventStartDt(),
+                sgevent.getEventEndDt(),
+                sgevent.getEventPlace(),
+                sgevent.getEventCapacity(),
+                sgevent.getEventOwnerId(),
+                sgevent.getEventStatus(),
+                sgevent.getEventCover()
+        );
     }
+
 
     public void deleteEventbyId(UUID eventId)
     {
