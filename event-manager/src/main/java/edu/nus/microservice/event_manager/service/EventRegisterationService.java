@@ -1,7 +1,5 @@
 package edu.nus.microservice.event_manager.service;
 import edu.nus.microservice.event_manager.dto.EventRegisterResponse;
-import edu.nus.microservice.event_manager.dto.EventResponse;
-import edu.nus.microservice.event_manager.model.Event;
 import edu.nus.microservice.event_manager.model.EventRegistration;
 import edu.nus.microservice.event_manager.repository.EventRegisterRepository;
 import edu.nus.microservice.event_manager.repository.EventReviewRepository;
@@ -9,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 @Service
@@ -26,29 +25,38 @@ public class EventRegisterationService {
 
     private EventRegisterResponse maptoRegisterResponse(EventRegistration eventRegistration) {
         return EventRegisterResponse.builder()
-                .registerId(eventRegistration.getRegisterId())
                 .eventId(eventRegistration.getEventId())
                 .registerDt(eventRegistration.getRegisterDt())
                 .userId(eventRegistration.getUserId())
                 .build();
     }
 
-    public EventRegisterResponse registerEvent(UUID userId,UUID eventId)
+    public EventRegisterResponse registerEvent(String userId,String eventId)
     {
-       // Event sgevent = eventRepository.SearchEventByTitle();
+        EventRegistration EReg = new EventRegistration();
+        EReg.setRegisterId(UUID.randomUUID());
+        EReg.setEventId(UUID.fromString(eventId));
+        EReg.setRegisterDt(new Date());
+        EReg.setRegisterStatus("Registered");
+        EReg.setUserId(UUID.fromString(userId));
+        eventRegisterRepository.save(EReg);
 
-
-        return new EventRegisterResponse();
+        return maptoRegisterResponse(EReg);
 
     }
 
-    public EventRegisterResponse unregisterEvent(UUID userId,UUID eventId)
+    public List<EventRegisterResponse> searchRegistrationByUser(UUID userId)
     {
-        // Event sgevent = eventRepository.SearchEventByTitle();
+        List<EventRegistration> regList = eventRegisterRepository.SearchRegistrationByUser(userId);
+//
+        return regList.stream().map(this::maptoRegisterResponse).toList();
+    }
 
+    public EventRegisterResponse unregisterEvent(UUID eventId, UUID userId)
+    {
+        eventRegisterRepository.deleteByIds(eventId,userId);
 
         return new EventRegisterResponse();
-
     }
 
 }

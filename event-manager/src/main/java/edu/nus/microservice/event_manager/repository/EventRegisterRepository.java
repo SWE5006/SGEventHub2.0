@@ -1,4 +1,5 @@
 package edu.nus.microservice.event_manager.repository;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -18,6 +19,12 @@ public interface EventRegisterRepository
     nativeQuery = true
   )
   Iterable<EventRegistration> SearchEventRegister(UUID event_id);
+
+  @Query(
+          value = "select event_registration.* from event_registration where user_id=?1",
+          nativeQuery = true
+  )
+  List<EventRegistration> SearchRegistrationByUser(UUID user_id);
 
   @Transactional
   @Modifying

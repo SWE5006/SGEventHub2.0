@@ -12,7 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventRegisterResponse {
-    private UUID registerId;
     private UUID userId;
     private UUID eventId;
     private Date registerDt;
