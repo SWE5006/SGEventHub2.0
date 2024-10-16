@@ -33,8 +33,7 @@ public class EventService {
         ModelMapper modelMapper = new ModelMapper();
         EventResponse response = modelMapper.map(event, EventResponse.class);
         //check whether current user had registered this event
-        boolean isRegistered = registerlist.stream()
-                .filter(evt -> evt.getEventId().equals(response.getEventId()) && evt.getUserId().equals(userId)).count() > 0;
+        boolean isRegistered = registerlist.stream().anyMatch(evt -> evt.getEventId().equals(response.getEventId()) && evt.getUserId().equals(userId));
         //check how many user has registered this event
         long regCount = registerlist.stream().filter(evt -> evt.getEventId().equals(event.getEventId())).count();
         response.setRegistered(isRegistered);
@@ -44,8 +43,7 @@ public class EventService {
 
     private EventResponse maptoEventResponse(Event event) {
         ModelMapper modelMapper = new ModelMapper();
-        EventResponse response = modelMapper.map(event, EventResponse.class);
-        return response;
+        return modelMapper.map(event, EventResponse.class);
     }
 
     public EventResponse createEvent(EventRequest eventRequest) {

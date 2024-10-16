@@ -2,12 +2,10 @@ package edu.nus.microservice.event_manager.controller;
 
 import edu.nus.microservice.event_manager.dto.EventRequest;
 import edu.nus.microservice.event_manager.dto.EventResponse;
-import edu.nus.microservice.event_manager.dto.EventReviewResponse;
 import edu.nus.microservice.event_manager.service.EventRegisterationService;
 import edu.nus.microservice.event_manager.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +21,6 @@ import java.util.UUID;
 public class EventController {
 
     private final EventService eventService;
-    private final EventRegisterationService registrationService;
     private final Logger log = LoggerFactory.getLogger(EventController.class);
     @GetMapping(path="/{title}")
     public EventResponse searchEventUser(@PathVariable("title") String Title) {

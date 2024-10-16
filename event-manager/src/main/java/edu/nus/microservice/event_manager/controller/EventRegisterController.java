@@ -2,7 +2,6 @@ package edu.nus.microservice.event_manager.controller;
 
 import edu.nus.microservice.event_manager.dto.EventRegisterResponse;
 
-import edu.nus.microservice.event_manager.dto.SuccessResponse;
 import edu.nus.microservice.event_manager.service.EventRegisterationService;
 
 import lombok.RequiredArgsConstructor;

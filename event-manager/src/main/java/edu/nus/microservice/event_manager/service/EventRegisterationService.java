@@ -2,7 +2,6 @@ package edu.nus.microservice.event_manager.service;
 import edu.nus.microservice.event_manager.dto.EventRegisterResponse;
 import edu.nus.microservice.event_manager.model.EventRegistration;
 import edu.nus.microservice.event_manager.repository.EventRegisterRepository;
-import edu.nus.microservice.event_manager.repository.EventReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,12 +44,6 @@ public class EventRegisterationService {
 
     }
 
-    public List<EventRegisterResponse> searchRegistrationByUser(UUID userId)
-    {
-        List<EventRegistration> regList = eventRegisterRepository.SearchRegistrationByUser(userId);
-//
-        return regList.stream().map(this::maptoRegisterResponse).toList();
-    }
 
     public EventRegisterResponse unregisterEvent(UUID eventId, UUID userId)
     {
