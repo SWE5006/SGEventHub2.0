@@ -8,7 +8,8 @@ import { authSelector } from "../../state/auth/slice";
 import EditEventForm from "../../components/EditEventForm"; // 确保正确引入
 
 const EventDetailsPage = ({ location }) => {
-  const eventId = location.search.substring(1); // 从 location 获取 eventId
+  const params = new URLSearchParams(location.search);
+  const eventId = params.get("eventid");
   const { userInfo } = useSelector((state) => authSelector(state));
   const [event, setEvent] = useState(null);
 
