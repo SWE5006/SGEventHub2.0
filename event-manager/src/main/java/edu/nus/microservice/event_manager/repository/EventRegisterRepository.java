@@ -18,7 +18,7 @@ public interface EventRegisterRepository
     value = "select event_registration.* from event_registration where event_id=?1",
     nativeQuery = true
   )
-  Iterable<EventRegistration> SearchEventRegister(UUID event_id);
+  List<EventRegistration> SearchEventRegister(UUID event_id);
 
   @Query(
           value = "select event_registration.* from event_registration where user_id=?1",

@@ -1,5 +1,6 @@
 package edu.nus.microservice.event_manager.service;
 
+import edu.nus.microservice.event_manager.dto.EventDetailResponse;
 import edu.nus.microservice.event_manager.dto.EventRequest;
 import edu.nus.microservice.event_manager.dto.EventResponse;
 import edu.nus.microservice.event_manager.model.Event;
@@ -46,6 +47,11 @@ public class EventService {
         return modelMapper.map(event, EventResponse.class);
     }
 
+    private EventDetailResponse maptoEventDetailResponse(Event event) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(event, EventDetailResponse.class);
+    }
+
     public EventResponse createEvent(EventRequest eventRequest) {
         // 如果 eventId 为空，自动生成 UUID
         UUID eventId = (eventRequest.getEventId() == null) ? UUID.randomUUID() : eventRequest.getEventId();
@@ -66,7 +72,6 @@ public class EventService {
                 .eventCreateDt(createDt)
                 .eventCover(eventRequest.getEventCover())
                 .eventCapacity(eventRequest.getEventCapacity())
-//                .eventOwnerId(eventOwnerId)
                 .eventPlace(eventRequest.getEventPlace())
                 .eventStartDt(eventRequest.getEventStartDt())
                 .eventStatus(eventStatus)
@@ -96,11 +101,14 @@ public class EventService {
         return  maptoEventResponse(sgevent);
     }
 
-    public EventResponse searchEventById(UUID eventId)
+    public EventDetailResponse searchEventById(UUID eventId)
     {
         Event sgevent = eventRepository.QueryEventById(eventId);
+        List<EventRegistration> registrationList = eventRegisterRepository.SearchEventRegister(eventId);
 
-        return maptoEventResponse(sgevent);
+        EventDetailResponse response =  maptoEventDetailResponse(sgevent);
+        response.setUserList(registrationList);
+        return response;
     }
 
     public  int UpdateEvent( UUID eventId, String eventTitle, String eventDesc, String eventCover, String eventPlace,

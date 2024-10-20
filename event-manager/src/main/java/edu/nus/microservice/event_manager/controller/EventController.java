@@ -1,8 +1,8 @@
 package edu.nus.microservice.event_manager.controller;
 
+import edu.nus.microservice.event_manager.dto.EventDetailResponse;
 import edu.nus.microservice.event_manager.dto.EventRequest;
 import edu.nus.microservice.event_manager.dto.EventResponse;
-import edu.nus.microservice.event_manager.service.EventRegisterationService;
 import edu.nus.microservice.event_manager.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class EventController {
 
 
     @GetMapping("/details")
-    public EventResponse searchEventById(@RequestParam("eventid") UUID eventId) {
+    public EventDetailResponse searchEventById(@RequestParam("eventid") UUID eventId) {
         if (eventId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event ID cannot be null");
         }

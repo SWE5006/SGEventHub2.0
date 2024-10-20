@@ -3,18 +3,17 @@ package edu.nus.microservice.event_manager.repository;
 import java.util.Date;
 import java.util.List;
 
-import edu.nus.microservice.event_manager.model.Event;
+
 import edu.nus.microservice.event_manager.model.EventReview;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
-
-public interface EventReviewRepository extends JpaRepository<EventReview, UUID> {
-
-
-
+@Transactional
+public interface EventReviewRepository extends CrudRepository<EventReview, UUID> {
+    @Modifying
     @Query(
             value = "select event_review.* from event_review where review_id=?1",
             nativeQuery = true
@@ -25,6 +24,6 @@ public interface EventReviewRepository extends JpaRepository<EventReview, UUID> 
             value = "select event_review.* from event_review where event_id=?1",
             nativeQuery = true
     )
-    EventReview QueryEventReviewByEventId(UUID event_id);
+    List<EventReview> QueryEventReviewByEventId(UUID event_id);
 
 }
