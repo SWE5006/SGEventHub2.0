@@ -9,6 +9,7 @@ import edu.nus.microservice.event_manager.model.EventReview;
 import edu.nus.microservice.event_manager.repository.EventRepository;
 import edu.nus.microservice.event_manager.repository.EventReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,35 +30,27 @@ public class EventReviewService {
     }
 
     private EventReviewResponse maptoReviewResponse(EventReview eventReview) {
-        return EventReviewResponse.builder()
-                .reviewId(eventReview.getReviewId())
-                .eventId(eventReview.getEventId())
-                .comment(eventReview.getComment())
-                .rating(eventReview.getRating())
-                .userId(eventReview.getUserId())
-                .build();
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(eventReview, EventReviewResponse.class);
     }
 
-    public EventReviewResponse searchReviewByEventId(UUID eventId)
+    public List<EventReviewResponse> searchReviewByEventId(UUID eventId)
     {
-        EventReview eventReview = eventReviewRepository.QueryEventReviewById(eventId);
+        List<EventReview> eventReviewList = eventReviewRepository.QueryEventReviewByEventId(eventId);
 
-
-        return new EventReviewResponse(eventReview.getReviewId(),eventReview.getEventId(),
-                eventReview.getUserId(),eventReview.getRating(),eventReview.getComment());
+        return eventReviewList.stream().map(this::maptoReviewResponse).toList();
 
     }
 
     public EventReviewResponse createEventReview(EventReview reviewRequest) {
         EventReview eventReview = EventReview.builder()
                 .eventId(reviewRequest.getEventId())
-                .reviewId(reviewRequest.getReviewId())
+                .reviewId(UUID.randomUUID())
                 .userId(reviewRequest.getUserId())
                 .rating(reviewRequest.getRating())
                 .comment(reviewRequest.getComment())
                 .build();
          eventReviewRepository.save(eventReview);
-        return new EventReviewResponse(eventReview.getReviewId(),eventReview.getEventId(),
-                eventReview.getUserId(),eventReview.getRating(),eventReview.getComment());
+        return maptoReviewResponse(eventReview);
     }
 }

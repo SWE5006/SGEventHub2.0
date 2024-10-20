@@ -21,6 +21,13 @@ export const userApi = createApi({
         method: "GET",
       }),
     }),
+    getUserListByIds: builder.mutation({
+      query: (payload) => ({
+        url: `api/user-manager/user/getUserDetails`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
     updateUser: builder.mutation({
       query: (payload) => ({
         url: "api/user-manager/user/update",
@@ -49,6 +56,7 @@ export const selectUser = (state) => state?.[userReducerName];
 export const {
   useGetUserListQuery,
   useGetUserDetailsQuery,
+  useGetUserListByIdsMutation,
   useUpdateUserMutation,
   useAddUserMutation,
   useDeleteUserMutation,

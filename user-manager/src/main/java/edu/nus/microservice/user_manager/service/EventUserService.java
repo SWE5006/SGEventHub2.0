@@ -155,6 +155,12 @@ public class EventUserService {
         return eventUserlist.stream().map(this::maptoEventUserResponse).toList();
     }
 
+    public List<EventUserResponse> getAllEventUsersByUserIds(List<UUID> userIds) {
+        List<EventUser> eventUserlist = (List<EventUser>) userRepository.findAllById(userIds);
+
+        return eventUserlist.stream().map(this::maptoEventUserResponse).toList();
+    }
+
     public List<UserDetailResponse> getAllEventUsersRole() {
         List<EventUser> eventUserlist = (List<EventUser>) userRepository.findAll();
 

@@ -1,12 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseURL } from "../constants";
+import { eventManagerBaseURL } from "../constants";
 import { commonHeader } from "../utils";
 
 export const reviewReducerName = "reviewApi";
 
 export const reviewApi = createApi({
   reducerPath: reviewReducerName,
-  baseQuery: fetchBaseQuery({ baseUrl: baseURL, prepareHeaders: commonHeader }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: eventManagerBaseURL,
+    prepareHeaders: commonHeader,
+  }),
   refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     getEventReviews: builder.query({
@@ -25,7 +28,5 @@ export const reviewApi = createApi({
   }),
 });
 
-export const {
-  useGetEventReviewsQuery,
-  usePostEventReviewMutation,
-} = reviewApi;
+export const { useGetEventReviewsQuery, usePostEventReviewMutation } =
+  reviewApi;

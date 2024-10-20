@@ -102,6 +102,11 @@ public class EventUserController {
         return eventUserService.getAllEventUsers();
     }
 
+    @PostMapping (path="/getUserDetails")
+    public List<EventUserResponse> getAllEventUsers(@RequestBody List<UUID> userIds) {
+        return eventUserService.getAllEventUsersByUserIds(userIds);
+    }
+
     @GetMapping (path="/allwrole")
     public List<UserDetailResponse> getAllEventUsersWithRole() {
         return eventUserService.getAllEventUsersRole();

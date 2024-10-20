@@ -24,6 +24,7 @@ export default function EditEventForm({
   isError,
   type,
   isChipDisabled = false,
+  userList = [],
 }) {
   const [event, setEvent] = React.useState();
 
@@ -138,7 +139,7 @@ export default function EditEventForm({
           <ChipList
             disabled={isChipDisabled}
             eventId={value.eventId}
-            items={value.userList}
+            items={userList}
             onDelete={onDelete}
             isDeleting={isDeleting}
           />

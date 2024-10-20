@@ -32,8 +32,8 @@ public class EventReviewController {
         return reviewService.getAllReviews();
     }
 
-    @GetMapping("/{eventId}")
-    public EventReviewResponse searchEventUser(@PathVariable("eventId") UUID eventId) {
+    @GetMapping("/event/{eventId}")
+    public List<EventReviewResponse> searchEventUser(@PathVariable("eventId") UUID eventId) {
         log.info("Event Review by Id:{}", eventId);
         return reviewService.searchReviewByEventId(eventId);
     }

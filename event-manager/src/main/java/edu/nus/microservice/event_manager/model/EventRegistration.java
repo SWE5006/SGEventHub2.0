@@ -14,12 +14,19 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class EventRegistration {
-
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "register_id")
   private UUID registerId;
+
+  @Column(name = "user_id")
   private UUID userId;
+
+  @Column(name = "event_id")
   private UUID eventId;
+
+  @Column(name = "register_dt")
   private Date registerDt;
+
+  @Column(name = "register_status")
   private String registerStatus;
 }

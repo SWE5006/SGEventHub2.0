@@ -1,18 +1,18 @@
 package edu.nus.microservice.event_manager.controller;
 
+import edu.nus.microservice.event_manager.dto.EventDetailResponse;
 import edu.nus.microservice.event_manager.dto.EventRequest;
 import edu.nus.microservice.event_manager.dto.EventResponse;
-import edu.nus.microservice.event_manager.dto.EventReviewResponse;
 import edu.nus.microservice.event_manager.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -30,7 +30,7 @@ public class EventController {
 
 
     @GetMapping("/details")
-    public EventResponse searchEventById(@RequestParam("eventId") UUID eventId) {
+    public EventDetailResponse searchEventById(@RequestParam("eventid") UUID eventId) {
         if (eventId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event ID cannot be null");
         }
@@ -50,18 +50,20 @@ public class EventController {
     }
 
     @GetMapping (path="/all")
-    public List<EventResponse> getAllEvents() {
+    public List<EventResponse> getAllEvents( @RequestHeader Map<String, String> header) {
         log.info("All Event Listing is Called");
-        return eventService.getAllEvents();
+        UUID userId = UUID.fromString(header.get("userid"));
+        return eventService.getAllEvents(userId);
+
     }
 
     //修改后端路径定义和匹配问题：
     // 在 EventController 中，/details/{eventId} 使用了 UUID 作为路径参数，
     // 但是在前端调用时，你使用了 query string 参数（如 ?id=${eventId}），而不是路径参数。
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEventUser(@RequestParam("eventId") UUID eventId) {
+    public void deleteEventUser(@PathVariable("id") UUID eventId) {
         if (eventId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event ID cannot be null");
         }

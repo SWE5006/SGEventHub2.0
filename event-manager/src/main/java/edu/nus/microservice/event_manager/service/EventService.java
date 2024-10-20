@@ -1,10 +1,14 @@
 package edu.nus.microservice.event_manager.service;
 
+import edu.nus.microservice.event_manager.dto.EventDetailResponse;
 import edu.nus.microservice.event_manager.dto.EventRequest;
 import edu.nus.microservice.event_manager.dto.EventResponse;
 import edu.nus.microservice.event_manager.model.Event;
+import edu.nus.microservice.event_manager.model.EventRegistration;
+import edu.nus.microservice.event_manager.repository.EventRegisterRepository;
 import edu.nus.microservice.event_manager.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,19 +21,35 @@ import java.util.UUID;
 @Transactional
 public class EventService {
     private final EventRepository eventRepository;
+    private final EventRegisterRepository eventRegisterRepository;
 
-
-    public List<EventResponse> getAllEvents() {
+    public List<EventResponse> getAllEvents(UUID userId) {
         List<Event> eventlist = (List<Event>) eventRepository.findAll();
+        List<EventRegistration> registerlist = (List<EventRegistration>) eventRegisterRepository.findAll();
 
-        return eventlist.stream().map(this::maptoEventResponse).toList();
+        return eventlist.stream().map(event ->mapEventToEventResponseWithRegistration(event,registerlist,userId)).toList();
+    }
+
+    private EventResponse mapEventToEventResponseWithRegistration(Event event, List<EventRegistration> registerlist,UUID userId ) {
+        ModelMapper modelMapper = new ModelMapper();
+        EventResponse response = modelMapper.map(event, EventResponse.class);
+        //check whether current user had registered this event
+        boolean isRegistered = registerlist.stream().anyMatch(evt -> evt.getEventId().equals(response.getEventId()) && evt.getUserId().equals(userId));
+        //check how many user has registered this event
+        long regCount = registerlist.stream().filter(evt -> evt.getEventId().equals(event.getEventId())).count();
+        response.setRegistered(isRegistered);
+        response.setRegistrationCount(regCount);
+        return response;
     }
 
     private EventResponse maptoEventResponse(Event event) {
-        return EventResponse.builder()
-                .eventDesc(event.getEventDesc())
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(event, EventResponse.class);
+    }
 
-                .build();
+    private EventDetailResponse maptoEventDetailResponse(Event event) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(event, EventDetailResponse.class);
     }
 
     public EventResponse createEvent(EventRequest eventRequest) {
@@ -52,7 +72,6 @@ public class EventService {
                 .eventCreateDt(createDt)
                 .eventCover(eventRequest.getEventCover())
                 .eventCapacity(eventRequest.getEventCapacity())
-//                .eventOwnerId(eventOwnerId)
                 .eventPlace(eventRequest.getEventPlace())
                 .eventStartDt(eventRequest.getEventStartDt())
                 .eventStatus(eventStatus)
@@ -65,19 +84,7 @@ public class EventService {
         eventRepository.save(sgevent);
 
         // 返回 EventResponse
-        return new EventResponse(
-                sgevent.getEventId(),
-                sgevent.getEventTitle(),
-                sgevent.getEventDesc(),
-                sgevent.getEventCreateDt(),
-                sgevent.getEventStartDt(),
-                sgevent.getEventEndDt(),
-                sgevent.getEventPlace(),
-                sgevent.getEventCapacity(),
-                sgevent.getEventOwnerId(),
-                sgevent.getEventStatus(),
-                sgevent.getEventCover()
-        );
+        return maptoEventResponse(sgevent);
     }
 
 
@@ -91,24 +98,17 @@ public class EventService {
     {
         Event sgevent = eventRepository.SearchEventByTitle(Title);
 
-
-        return new EventResponse(sgevent.getEventId(),sgevent.getEventTitle(),
-                sgevent.getEventDesc(),sgevent.getEventCreateDt(),sgevent.getEventStartDt(),
-                sgevent.getEventEndDt(),sgevent.getEventPlace(),sgevent.getEventCapacity(),
-                sgevent.getEventOwnerId(),sgevent.getEventStatus(),sgevent.getEventCover());
-
+        return  maptoEventResponse(sgevent);
     }
 
-    public EventResponse searchEventById(UUID eventId)
+    public EventDetailResponse searchEventById(UUID eventId)
     {
         Event sgevent = eventRepository.QueryEventById(eventId);
+        List<EventRegistration> registrationList = eventRegisterRepository.SearchEventRegister(eventId);
 
-
-        return new EventResponse(sgevent.getEventId(),sgevent.getEventTitle(),
-                sgevent.getEventDesc(),sgevent.getEventCreateDt(),sgevent.getEventStartDt(),
-                sgevent.getEventEndDt(),sgevent.getEventPlace(),sgevent.getEventCapacity(),
-                sgevent.getEventOwnerId(),sgevent.getEventStatus(),sgevent.getEventCover());
-
+        EventDetailResponse response =  maptoEventDetailResponse(sgevent);
+        response.setUserList(registrationList);
+        return response;
     }
 
     public  int UpdateEvent( UUID eventId, String eventTitle, String eventDesc, String eventCover, String eventPlace,

@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
-@RequestMapping("/api/event-manager/eventregister")
+@RequestMapping("/api/event-manager/event/registration")
 @RequiredArgsConstructor
 public class EventRegisterController {
 
@@ -30,8 +30,8 @@ public class EventRegisterController {
     @GetMapping(path = "/register/{eventId}/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
     public EventRegisterResponse RegisterEvent(
-            @PathVariable("eventId") UUID eventId,
-            @PathVariable("userId") UUID userId
+            @PathVariable("eventId") String eventId,
+            @PathVariable("userId") String userId
     ) {
         log.info("Getting event register information:{}|{}", eventId, userId);
     return registrationService.registerEvent(userId,eventId);
@@ -44,7 +44,7 @@ public class EventRegisterController {
             @PathVariable("userId") UUID userId
     ) {
         log.info("Getting event un register information:{}|{}", eventId, userId);
-        return registrationService.unregisterEvent(userId,eventId);
+        return registrationService.unregisterEvent(eventId, userId);
 
     }
 

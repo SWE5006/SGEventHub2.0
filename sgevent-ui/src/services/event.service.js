@@ -1,12 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseURL } from "../constants";
+import { eventManagerBaseURL } from "../constants";
 import { commonHeader } from "../utils";
 
 export const eventReducerName = "eventApi";
 
 export const eventApi = createApi({
   reducerPath: eventReducerName,
-  baseQuery: fetchBaseQuery({ baseUrl: baseURL, prepareHeaders: commonHeader }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: eventManagerBaseURL,
+    prepareHeaders: commonHeader,
+  }),
   refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
     getEventList: builder.query({
@@ -15,7 +18,7 @@ export const eventApi = createApi({
         method: "GET",
       }),
     }),
-    
+
     // 正确
     getEventDetails: builder.query({
       query: (id) => ({
@@ -23,7 +26,6 @@ export const eventApi = createApi({
         method: "GET",
       }),
     }),
-    
 
     // getEventForEdit: builder.query({
     //   query: (id) => ({
@@ -31,7 +33,7 @@ export const eventApi = createApi({
     //     method: "GET",
     //   }),
     // }),
-    
+
     addEvent: builder.mutation({
       query: (payload) => ({
         url: "api/event-manager/event/create",
@@ -54,7 +56,7 @@ export const eventApi = createApi({
     }),
     registerEvent: builder.mutation({
       query: ({ type, eventId, userId }) => ({
-        url: `api/event-manager/event/${type}/${eventId}/${userId}`,
+        url: `api/event-manager/event/registration/${type}/${eventId}/${userId}`,
         method: "GET",
       }),
     }),

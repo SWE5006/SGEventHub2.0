@@ -8,6 +8,7 @@ import {
 } from "../../services/event.service";
 import { navigate } from "gatsby";
 import EditEventForm from "../../components/EditEventForm";
+import { useGetUserListByIdsMutation } from "../../services/user.service";
 import Button from "@mui/material/Button";
 
 export default function EditEvent({ location }) {
@@ -17,28 +18,40 @@ export default function EditEvent({ location }) {
   const { data, error, isFetching, refetch } = useGetEventDetailsQuery(eventId);
   const [updateEvent, result] = useUpdateEventMutation();
   const [registerEvent, registerResult] = useRegisterEventMutation();
+  const [getUserList, userListResult] = useGetUserListByIdsMutation();
   const [type, setType] = useState("view");
   const [value, setValue] = useState({});
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
     if (result.isSuccess) navigate("/events");
   }, [result.isSuccess]);
 
   useEffect(() => {
+    //reset userlist when user click on close button on participants
     if (registerResult.isSuccess) {
       const userId = registerResult.originalArgs.userId;
-      setValue((prev) => {
-        const userList = [...prev.userList];
+      setUserList((prev) => {
+        const userList = [...prev];
         const index = userList.findIndex((user) => user.userId === userId);
         userList.splice(index, 1);
-        return { ...prev, userList };
+        return userList;
       });
     }
   }, [registerResult]);
 
   useEffect(() => {
+    //get userList data when user detail is available
     setValue(data);
+    if (data?.userList?.length) {
+      const list = data?.userList.map((item) => item.userId);
+      getUserList(list);
+    }
   }, [data]);
+
+  useEffect(() => {
+    setUserList(userListResult.data);
+  }, [userListResult]);
 
   const onUpdateUser = (event) => {
     updateEvent(event);
@@ -61,6 +74,7 @@ export default function EditEvent({ location }) {
         <EditEventForm
           type={type}
           value={value}
+          userList={userList}
           onSubmit={onUpdateUser}
           onDelete={registerEvent}
           isDeleting={registerResult.isFetching}
