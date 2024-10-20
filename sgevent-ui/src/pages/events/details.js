@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import EventReview from "../../components/EventReview";
 import { useGetEventDetailsQuery } from "../../services/event.service";
+import { useGetUserListByIdsMutation } from "../../services/user.service";
 import { authSelector } from "../../state/auth/slice";
 import EditEventForm from "../../components/EditEventForm"; // 确保正确引入
 
@@ -14,10 +15,15 @@ const EventDetailsPage = ({ location }) => {
   const [event, setEvent] = useState(null);
 
   const { data: eventData, isLoading } = useGetEventDetailsQuery(eventId);
+  const [getUserList, userList] = useGetUserListByIdsMutation();
 
   useEffect(() => {
     if (eventData) {
       setEvent(eventData);
+      if (eventData?.userList?.length) {
+        const list = eventData?.userList.map((item) => item.userId);
+        getUserList(list);
+      }
     }
   }, [eventData]);
 
@@ -26,7 +32,12 @@ const EventDetailsPage = ({ location }) => {
       <div>
         {event ? (
           <>
-            <EditEventForm value={event} type="view" isChipDisabled />{" "}
+            <EditEventForm
+              value={event}
+              userList={userList.data}
+              type="view"
+              isChipDisabled
+            />{" "}
             {/* 使用 EditEventForm 展示事件详情 */}
             <br />
             <br />
