@@ -1,10 +1,12 @@
-// export const baseURL = "http://backend_site:8080/sgevent/v1";
-// export const mapURL = "https://www.onemap.gov.sg/api/common/elastic";
+// index.js
+export const baseURL = "http://sg-event-v2-lb-695553495.ap-southeast-1.elb.amazonaws.com:8080/";
+export const eventManagerBaseURL = "http://sg-event-v2-lb-695553495.ap-southeast-1.elb.amazonaws.com:8080/";
+export const mapURL = "https://www.onemap.gov.sg/api/common/elastic";
 
-// local test
-export const baseURL = "http://localhost:8082/";
-export const eventManagerBaseURL = "http://localhost:8081/";
-export const mapURL = "http://localhost:8000/sgMap";
+//// local test
+//export const baseURL = "http://localhost:8082/";
+//export const eventManagerBaseURL = "http://localhost:8081/"
+//export const mapURL = "http://localhost:8000/sgMap";
 
 export const statusOptions = [
   { value: 1, label: "Active" },
