@@ -10,8 +10,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")  // 对所有路径启用跨域
-                .allowedOrigins("http://localhost:8000")  // 允许的前端源
-                .allowedMethods("GET", "POST", "PUT", "DELETE")  // 允许的HTTP方法
+                .allowedOrigins("https://d1sv4fxemqhi2y.cloudfront.net")  // 允许的前端源，替换为CloudFront的域名
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // 允许的HTTP方法，增加OPTIONS
                 .allowedHeaders("*")  // 允许的请求头
                 .allowCredentials(true);  // 是否允许携带Cookie
     }
