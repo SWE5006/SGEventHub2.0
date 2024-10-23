@@ -1,6 +1,7 @@
 import React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import PropTypes from "prop-types";
 
 const ChipList = ({ eventId, items, onDelete, disabled, isDeleting }) => {
   const handleDelete = (item) => () => {
@@ -25,6 +26,16 @@ const ChipList = ({ eventId, items, onDelete, disabled, isDeleting }) => {
       ))}
     </Stack>
   );
+};
+
+ChipList.propTypes = {
+  eventId: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({ userId: PropTypes.string, userName: PropTypes.string })
+  ).isRequired,
+  onDelete: PropTypes.func,
+  disabled: PropTypes.bool.isRequired,
+  isDeleting: PropTypes.bool.isRequired,
 };
 
 export default ChipList;

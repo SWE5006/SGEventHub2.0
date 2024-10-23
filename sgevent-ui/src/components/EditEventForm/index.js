@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -10,10 +9,10 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import DateTimeRangePicker from "../DateTimeRangePicker";
 import QuantityInput from "../QuantityInput";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import InputFileUpload from "../FileUploader";
 import LocationSelect from "../LocationSelect";
 import ChipList from "../ChipList";
+import PropTypes from "prop-types";
 
 export default function EditEventForm({
   value,
@@ -186,3 +185,25 @@ export default function EditEventForm({
     </Box>
   ) : null;
 }
+
+EditEventForm.propTypes = {
+  value: PropTypes.shape({
+    eventId: PropTypes.string,
+    eventTitle: PropTypes.string,
+    eventCover: PropTypes.string,
+    eventDesc: PropTypes.string,
+    eventPlace: PropTypes.string,
+    eventCapacity: PropTypes.number,
+    eventStartDt: PropTypes.string,
+  }).isRequired,
+  title: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  isDeleting: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  type: PropTypes.string,
+  isChipDisabled: PropTypes.bool,
+  userList: PropTypes.array,
+};

@@ -6,7 +6,6 @@ import Skeleton from "@mui/material/Skeleton";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { getFormattedTime } from "../../utils";
-import Button from "@mui/material/Button";
 import DeleteModal from "../DeleteModal";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
@@ -14,7 +13,6 @@ import img from "../../images/img-placeholder.png";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { authSelector } from "../../state/auth/slice";
 import { useSelector } from "react-redux";
-import { navigate } from "gatsby"; // 导入 navigate 函数
 
 export default function EventCard({
   value,
@@ -145,14 +143,14 @@ export default function EventCard({
                     {value?.registered ? "Leave" : "Join"}
                   </LoadingButton>
 
-                  <LoadingButton 
-                    variant="outlined" 
+                  <LoadingButton
+                    variant="outlined"
                     onClick={() => {
-                      onDetails(value.eventId);  // 修改这里，直接传递 eventId
-                      }}>
+                      onDetails(value.eventId); // 修改这里，直接传递 eventId
+                    }}
+                  >
                     Details
                   </LoadingButton>
-
                 </Box>
               )}
             </Box>
