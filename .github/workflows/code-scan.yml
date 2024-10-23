@@ -14,10 +14,10 @@ name: Code Quality Check
 
 on:
   push:
-    branches: ["codescan"]
+    branches: ["branch-codescan"]
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    branches: ["codescan"]
+    branches: ["branch-codescan"]
 
 permissions:
   contents: read
