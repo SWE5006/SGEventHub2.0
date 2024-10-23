@@ -49,6 +49,6 @@ jobs:
             -Dsonar.projectKey=sgevent2
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.sources=src/
-            -Dsonar.test.exclusions=tests/**
-            -Dsonar.tests=tests/
+            -Dsonar.test.exclusions=/**
+            -Dsonar.tests=/
             -Dsonar.verbose=true
