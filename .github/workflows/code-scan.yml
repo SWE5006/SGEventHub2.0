@@ -1,0 +1,43 @@
+# This workflow will build and push a web application to an Azure Static Web App when you change your code.
+#
+# This workflow assumes you have already created the target Azure Static Web App.
+# For instructions see https://docs.microsoft.com/azure/static-web-apps/get-started-portal?tabs=vanilla-javascript
+#
+# To configure this workflow:
+#
+# 1. Set up a secret in your repository named AZURE_STATIC_WEB_APPS_API_TOKEN with the value of your Static Web Apps deployment token.
+#    For instructions on obtaining the deployment token see: https://docs.microsoft.com/azure/static-web-apps/deployment-token-management
+#
+# 3. Change the values for the APP_LOCATION, API_LOCATION and APP_ARTIFACT_LOCATION, AZURE_STATIC_WEB_APPS_API_TOKEN environment variables (below).
+#    For instructions on setting up the appropriate configuration values go to https://docs.microsoft.com/azure/static-web-apps/front-end-frameworks
+name: Code Quality Check
+
+on:
+  push:
+    branches: ["codescan"]
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches: ["codescan"]
+
+permissions:
+  contents: read
+
+jobs:
+  code_scan_job:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      pull-requests: write # for Azure/static-web-apps-deploy to comment on PRs
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+
+    name: Code Quality Check
+    steps:
+      - name: SonarCloud Scan
+        # You may pin to the exact commit or the version.
+        # uses: SonarSource/sonarcloud-github-action@383f7e52eae3ab0510c3cb0e7d9d150bbaeab838
+        uses: SonarSource/sonarcloud-github-action@v3.1.0
+        with:
+        # Additional arguments to the sonarcloud scanner
+        args: # optional
+        # Set the sonar.projectBaseDir analysis property
+        projectBaseDir: /sgevent-ui
