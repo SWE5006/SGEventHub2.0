@@ -42,11 +42,12 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v3.1.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
         with:
           projectBaseDir: sgevent-ui
           args: >
-            -Dsonar.organization=iss-teamsgevent
-            -Dsonar.projectKey=sgevent2
+            -Dsonar.organization=swe5006
+            -Dsonar.projectKey=SWE5006_SGEventHub2.0
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.sources=src/
             -Dsonar.test.exclusions=/**
