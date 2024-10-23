@@ -36,4 +36,5 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: SonarSource/sonarcloud-github-action@383f7e52eae3ab0510c3cb0e7d9d150bbaeab838
         uses: SonarSource/sonarcloud-github-action@v3.1.0
-        projectBaseDir: /sgevent-ui
+        with:
+          projectBaseDir: /sgevent-ui
