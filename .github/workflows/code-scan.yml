@@ -37,13 +37,24 @@ jobs:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
 
+      - name: Install Node.js
+        uses: actions/setup-node@v4.0.4
+        with:
+          node-version: "18.x"
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
       - name: Install dependencies
+        working-directory: sgevent-ui
         run: yarn
 
       - name: Test and coverage
+        working-directory: sgevent-ui
         run: yarn jest --coverage
 
       - name: SonarCloud Scan
+        working-directory: sgevent-ui
         # You may pin to the exact commit or the version.
         # uses: SonarSource/sonarcloud-github-action@383f7e52eae3ab0510c3cb0e7d9d150bbaeab838
         uses: SonarSource/sonarcloud-github-action@v3.1.0
@@ -55,7 +66,7 @@ jobs:
             -Dsonar.organization=swe5006
             -Dsonar.projectKey=SWE5006_SGEventHub2.0
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
-            -Dsonar.sources=sgevent-ui/src/
-            -Dsonar.inclusions=sgevent-ui/src/**
-            -Dsonar.tests.inclusions=sgevent-ui/src/**/*.test.js
+            -Dsonar.sources=src/
+            -Dsonar.inclusions=src/**
+            -Dsonar.tests.inclusions=src/**/*.test.js
             -Dsonar.verbose=true
