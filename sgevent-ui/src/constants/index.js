@@ -1,7 +1,16 @@
-// index.js
-export const baseURL = "http://sg-event-v2-lb-695553495.ap-southeast-1.elb.amazonaws.com:8080/";
-export const eventManagerBaseURL = "http://sg-event-v2-lb-695553495.ap-southeast-1.elb.amazonaws.com:8080/";
+// Prod
+export const baseURL = "https://sg-event-v2-backend.click:8443";
+export const eventManagerBaseURL = "https://sg-event-v2-backend.click:8443";
 export const mapURL = "https://www.onemap.gov.sg/api/common/elastic";
+
+
+
+
+//// local test2
+//export const baseURL = "http://sg-event-v2-lb-695553495.ap-southeast-1.elb.amazonaws.com:8080/";
+//export const eventManagerBaseURL = "http://sg-event-v2-lb-695553495.ap-southeast-1.elb.amazonaws.com:8080/";
+//export const mapURL = "https://www.onemap.gov.sg/api/common/elastic";
+
 
 //// local test
 //export const baseURL = "http://localhost:8082/";
