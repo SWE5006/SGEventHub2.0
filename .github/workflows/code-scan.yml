@@ -49,6 +49,6 @@ jobs:
             -Dsonar.projectKey=SWE5006_SGEventHub2.0
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.sources=sgevent-ui/src/
-            -Dsonar.test.exclusions=event-manager/**
+            -Dsonar.test.exclusions=sgevent-ui/**/store.js
             -Dsonar.tests=sgevent-ui/
             -Dsonar.verbose=true
