@@ -13,6 +13,7 @@ import img from "../../images/img-placeholder.png";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { authSelector } from "../../state/auth/slice";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 export default function EventCard({
   value,
@@ -160,3 +161,22 @@ export default function EventCard({
     </Card>
   );
 }
+
+EventCard.propTypes = {
+  value: PropTypes.shape({
+    eventId: PropTypes.string,
+    eventTitle: PropTypes.string,
+    eventCover: PropTypes.string,
+    eventDesc: PropTypes.string,
+    eventPlace: PropTypes.string,
+    eventCapacity: PropTypes.number,
+    eventStartDt: PropTypes.string,
+  }).isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  onDetails: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  isRegistering: PropTypes.bool.isRequired,
+};

@@ -1,6 +1,5 @@
 import * as React from "react";
 import Skeleton from "@mui/material/Skeleton";
-import Container from "@mui/material/Container";
 
 export default function FormSkeleton() {
   return (

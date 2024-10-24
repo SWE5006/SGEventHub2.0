@@ -7,6 +7,7 @@ import {
 import EventCard from "../EventCard";
 import Box from "@mui/material/Box";
 import { navigate } from "gatsby";
+import PropTypes from "prop-types";
 
 const EventList = ({ isAdmin }) => {
   const { data, error, isFetching, refetch } = useGetEventListQuery(null, {
@@ -23,13 +24,11 @@ const EventList = ({ isAdmin }) => {
   const onEdit = (eventId) => {
     navigate(`/events/edit?eventid=${eventId}`);
   };
-  
 
-   //正确
+  //正确
   const onDetails = (eventId) => {
     navigate(`/events/details?eventid=${eventId}`);
   };
-  
 
   return (
     <Box
@@ -45,11 +44,11 @@ const EventList = ({ isAdmin }) => {
           key={item.eventId} // 添加 key 属性
           value={item}
           onDelete={deleteEvent}
-          isDeleting={deleteResult.isLoading}  // 修正属性名
+          isDeleting={deleteResult.isLoading} // 修正属性名
           onEdit={onEdit}
           onRegister={registerEvent}
           isAdmin={isAdmin}
-          onDetails={onDetails} 
+          onDetails={onDetails}
           isRegistering={
             registerResult?.originalArgs?.eventId === item.eventId
               ? registerResult.isLoading || isFetching
@@ -59,6 +58,10 @@ const EventList = ({ isAdmin }) => {
       ))}
     </Box>
   );
+};
+
+EventList.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 export default EventList;
