@@ -171,6 +171,8 @@ EventCard.propTypes = {
     eventPlace: PropTypes.string,
     eventCapacity: PropTypes.number,
     eventStartDt: PropTypes.string,
+    registrationCount: PropTypes.number,
+    registered: PropTypes.bool,
   }).isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

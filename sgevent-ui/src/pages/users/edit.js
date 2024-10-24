@@ -13,10 +13,9 @@ export default function EditUser({ location }) {
   const params = new URLSearchParams(location.search);
   const userId = params.get("userId");
 
-  const { data, error, isLoading } = useGetUserDetailsQuery(userId);
+  const { data, isLoading } = useGetUserDetailsQuery(userId);
   const { data: roleList, isLoading: isRoleLoading } = useGetRoleListQuery();
   const [updateUser, result] = useUpdateUserMutation();
-  console.log(data, roleList);
 
   useEffect(() => {
     if (result.isSuccess) navigate("/users");

@@ -10,7 +10,7 @@ import { navigate } from "gatsby";
 import PropTypes from "prop-types";
 
 const EventList = ({ isAdmin }) => {
-  const { data, error, isFetching, refetch } = useGetEventListQuery(null, {
+  const { data, isFetching, refetch } = useGetEventListQuery(null, {
     refetchOnMountOrArgChange: true,
   });
   const [deleteEvent, deleteResult] = useDeleteEventMutation();
@@ -18,7 +18,7 @@ const EventList = ({ isAdmin }) => {
 
   useEffect(() => {
     if (deleteResult.isSuccess || registerResult.isSuccess) refetch();
-  }, [registerResult, deleteResult]);
+  }, [registerResult, deleteResult, refetch]);
 
   //正确
   const onEdit = (eventId) => {

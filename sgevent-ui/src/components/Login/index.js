@@ -70,13 +70,13 @@ export default function Login() {
       </Grid>
       <Grid item xs={12} sx={{ width: "75%", mt: 2 }}>
         <Typography textAlign="center" sx={{ mt: 2 }}>
-          Don't have an SG EventHub account?
-          <span
+          Don't have an SG EventHub account?{" "}
+          <Typography
             style={{ textDecoration: "underline", cursor: "pointer" }}
             onClick={() => navigate("/signup")}
           >
             Sign Up now
-          </span>
+          </Typography>
         </Typography>
       </Grid>
     </Grid>

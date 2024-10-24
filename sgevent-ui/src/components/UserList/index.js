@@ -16,7 +16,7 @@ import {
 import { navigate } from "gatsby";
 
 export default function UserList() {
-  const { data, error, isLoading, refetch } = useGetUserListQuery();
+  const { data, refetch } = useGetUserListQuery();
   const [deleteUser, result] = useDeleteUserMutation();
   const onEditClick = (userId) => {
     navigate(`/users/edit?userId=${userId}`);

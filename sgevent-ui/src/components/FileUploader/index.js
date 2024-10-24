@@ -46,7 +46,11 @@ export default function InputFileUpload({ label, value, onChange, disabled }) {
         />
       </Button>
       <br />
-      <img className="playerProfilePic_home_tile" src={picture}></img>
+      <img
+        alt="eventcover"
+        className="playerProfilePic_home_tile"
+        src={picture}
+      ></img>
     </>
   );
 }

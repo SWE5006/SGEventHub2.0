@@ -18,8 +18,7 @@ const EventReview = ({ eventId, userId }) => {
     isLoading,
     refetch,
   } = useGetEventReviewsQuery(eventId);
-  const [postReview, { isSuccess, isError, reset }] =
-    usePostEventReviewMutation();
+  const [postReview] = usePostEventReviewMutation();
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -120,7 +119,7 @@ const EventReview = ({ eventId, userId }) => {
   );
 };
 
-EventList.propTypes = {
+EventReview.propTypes = {
   eventId: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
 };

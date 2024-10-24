@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { navigate } from "gatsby";
 import { useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import EventReview from "../../components/EventReview";
@@ -14,7 +13,7 @@ const EventDetailsPage = ({ location }) => {
   const { userInfo } = useSelector((state) => authSelector(state));
   const [event, setEvent] = useState(null);
 
-  const { data: eventData, isLoading } = useGetEventDetailsQuery(eventId);
+  const { data: eventData } = useGetEventDetailsQuery(eventId);
   const [getUserList, userList] = useGetUserListByIdsMutation();
 
   useEffect(() => {

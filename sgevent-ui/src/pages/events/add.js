@@ -3,11 +3,11 @@ import Layout from "../../components/Layout";
 import AdminPageLayout from "../../components/AdminPageLayout";
 import EditEventForm from "../../components/EditEventForm";
 import { useAddEventMutation } from "../../services/event.service";
-import { useGetRoleListQuery } from "../../services/role.service";
+// import { useGetRoleListQuery } from "../../services/role.service";
 import { navigate } from "gatsby";
 
 export default function AddEvent({ location }) {
-  const params = new URLSearchParams(location.search);
+  // const params = new URLSearchParams(location.search);
 
   //   const { data: roleList, isLoading: isRoleLoading } = useGetRoleListQuery();
   const [addEvent, result] = useAddEventMutation();
