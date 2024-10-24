@@ -196,8 +196,6 @@ EditEventForm.propTypes = {
     eventCapacity: PropTypes.number,
     eventStartDt: PropTypes.string,
   }).isRequired,
-  title: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   isUpdating: PropTypes.bool.isRequired,

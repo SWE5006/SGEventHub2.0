@@ -6,7 +6,7 @@ import { useAddUserMutation } from "../../services/user.service";
 import { useGetRoleListQuery } from "../../services/role.service";
 import { navigate } from "gatsby";
 
-export default function EditUser({ location }) {
+export default function EditUser() {
   // const params = new URLSearchParams(location.search);
 
   const { data: roleList, isLoading: isRoleLoading } = useGetRoleListQuery();

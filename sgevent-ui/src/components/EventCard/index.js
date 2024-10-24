@@ -177,7 +177,6 @@ EventCard.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
-  isUpdating: PropTypes.bool.isRequired,
   onDetails: PropTypes.bool.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isRegistering: PropTypes.bool.isRequired,

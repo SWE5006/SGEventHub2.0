@@ -6,6 +6,7 @@ import { useGetEventDetailsQuery } from "../../services/event.service";
 import { useGetUserListByIdsMutation } from "../../services/user.service";
 import { authSelector } from "../../state/auth/slice";
 import EditEventForm from "../../components/EditEventForm"; // 确保正确引入
+import PropTypes from "prop-types";
 
 const EventDetailsPage = ({ location }) => {
   const params = new URLSearchParams(location.search);
@@ -50,6 +51,10 @@ const EventDetailsPage = ({ location }) => {
       </div>
     </Layout>
   );
+};
+
+EventDetailsPage.propTypes = {
+  location: PropTypes.shape({ search: PropTypes.string }),
 };
 
 export default EventDetailsPage;

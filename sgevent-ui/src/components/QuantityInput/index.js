@@ -5,6 +5,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import FormLabel from "@mui/material/FormLabel";
 import Box from "@mui/material/Box";
 import AddIcon from "@mui/icons-material/Add";
+import PropTypes from "prop-types";
 
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
   return (
@@ -38,6 +39,10 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
     </Box>
   );
 });
+
+CustomNumberInput.propTypes = {
+  label: PropTypes.string.isRequired,
+};
 
 export default NumberInput;
 

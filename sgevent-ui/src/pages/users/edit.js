@@ -8,6 +8,7 @@ import {
 } from "../../services/user.service";
 import { useGetRoleListQuery } from "../../services/role.service";
 import { navigate } from "gatsby";
+import PropTypes from "prop-types";
 
 export default function EditUser({ location }) {
   const params = new URLSearchParams(location.search);
@@ -39,3 +40,7 @@ export default function EditUser({ location }) {
     </Layout>
   );
 }
+
+EditUser.propTypes = {
+  location: PropTypes.shape({ search: PropTypes.string }),
+};

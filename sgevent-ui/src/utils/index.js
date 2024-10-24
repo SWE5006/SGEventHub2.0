@@ -7,7 +7,7 @@ export const getFormattedTime = (timestamp) => {
 };
 
 export const toBase64 = (file, callback) => {
-  var reader = new FileReader();
+  const reader = new FileReader();
   reader.onloadend = function (e) {
     callback(e.target.result, e.target.error);
   };
