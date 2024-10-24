@@ -40,7 +40,7 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
   );
 });
 
-CustomNumberInput.propTypes = {
+NumberInput.propTypes = {
   label: PropTypes.string.isRequired,
 };
 
