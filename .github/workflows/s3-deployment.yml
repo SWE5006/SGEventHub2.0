@@ -52,6 +52,9 @@ jobs:
         with:
           node-version: "18.x"
 
+      - name: Install dotenv
+        run: npm install -g dotenv
+
       - name: Install Yarn
         run: npm install -g yarn
 
