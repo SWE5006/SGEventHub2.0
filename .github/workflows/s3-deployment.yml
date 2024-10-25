@@ -42,10 +42,10 @@ jobs:
 
       - name: "Create env file"
         run: |
-          touch .env
+          touch sgevent-ui/.env
           echo AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} >> .env
           echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .env
-          cat .env
+          cat sgevent-ui/.env
 
       - name: Install Node.js
         uses: actions/setup-node@v4.0.4
@@ -55,7 +55,9 @@ jobs:
       - name: Install dotenv
         uses: falti/dotenv-action@v1.1.2
         with:
+          path: sgevent-ui/.env
           export-variables: true
+          log-variables: true
 
       - name: Install Yarn
         run: npm install -g yarn
