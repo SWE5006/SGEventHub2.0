@@ -53,7 +53,7 @@ jobs:
           node-version: "18.x"
 
       - name: Install dotenv
-        run: npm install -g dotenv
+        uses: falti/dotenv-action@v1.1.2
 
       - name: Install Yarn
         run: npm install -g yarn
@@ -72,4 +72,4 @@ jobs:
 
       - name: Deploy to S3
         working-directory: sgevent-ui
-        run: yarn deploy
+        run: npx gatsby-plugin-s3 deploy
