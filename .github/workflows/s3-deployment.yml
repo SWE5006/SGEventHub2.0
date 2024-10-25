@@ -43,8 +43,8 @@ jobs:
       - name: "Create env file"
         run: |
           touch sgevent-ui/.env
-          echo AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} >> .env
-          echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .env
+          echo AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} >> sgevent-ui/.env
+          echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> sgevent-ui/.env
           cat sgevent-ui/.env
 
       - name: Install Node.js
