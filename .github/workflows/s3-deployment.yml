@@ -22,8 +22,6 @@ on:
 # Environment variables available to all jobs and steps in this workflow
 env:
   AWS_REGION: ap-southeast-1
-  AWS_ACCESS_KEY_ID: "AKIAU6GD3UDDDBMFFF6W"
-  AWS_SECRET_ACCESS_KEY: "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"
 
 permissions:
   contents: read
@@ -41,6 +39,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
+
+      - name: "Create env file"
+        run: |
+          touch .env
+          echo AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} >> .env
+          echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .env
+          cat .env
 
       - name: Install Node.js
         uses: actions/setup-node@v4.0.4
