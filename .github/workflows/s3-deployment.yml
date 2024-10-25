@@ -14,10 +14,10 @@ name: Deploy web app to AWS S3
 
 on:
   push:
-    branches: ["branch-codescan"]
+    branches: ["main"]
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    branches: ["branch-codescan"]
+    branches: ["main"]
 
 # Environment variables available to all jobs and steps in this workflow
 env:
