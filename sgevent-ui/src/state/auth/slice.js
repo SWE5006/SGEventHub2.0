@@ -12,7 +12,6 @@ const authSlice = createSlice({
     isLoggedIn: false, // 初始时用户未登录
   },
   reducers: {
-
     // 用户登出
     logout: (state) => {
       // 重置状态为初始值
@@ -48,5 +47,4 @@ export default authSlice.reducer;
 
 // 导出selectors
 export const authSelector = (state) => state[authSliceName];
-export const userNameSelector = (state) =>
-  state[authSliceName].userInfo?.userName;
+export const userInfoSelector = (state) => state[authSliceName].userInfo;

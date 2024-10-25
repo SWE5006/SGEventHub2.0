@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { toBase64 } from "../../utils";
+import PropTypes from "prop-types";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -45,7 +46,18 @@ export default function InputFileUpload({ label, value, onChange, disabled }) {
         />
       </Button>
       <br />
-      <img className="playerProfilePic_home_tile" src={picture}></img>
+      <img
+        alt="eventcover"
+        className="playerProfilePic_home_tile"
+        src={picture}
+      ></img>
     </>
   );
 }
+
+InputFileUpload.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
+};

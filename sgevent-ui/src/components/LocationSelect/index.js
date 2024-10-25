@@ -4,6 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSearchLocationMutation } from "../../services/map.service";
 import debounce from "lodash/debounce";
+import PropTypes from "prop-types";
 
 export default function LocationSelect({ label, value, onChange, disabled }) {
   const [open, setOpen] = React.useState(false);
@@ -64,3 +65,10 @@ export default function LocationSelect({ label, value, onChange, disabled }) {
     />
   );
 }
+
+LocationSelect.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
+};

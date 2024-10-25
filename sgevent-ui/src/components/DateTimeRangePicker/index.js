@@ -5,6 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import { DateTimeRangePicker } from "@mui/x-date-pickers-pro/DateTimeRangePicker";
+import PropTypes from "prop-types";
 
 export default function DateTimeRangePickerInput({
   defaultStartVal,
@@ -29,3 +30,11 @@ export default function DateTimeRangePickerInput({
     </LocalizationProvider>
   );
 }
+
+DateTimeRangePickerInput.propTypes = {
+  defaultStartVal: PropTypes.string.isRequired,
+  defaultEndVal: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool.isRequired,
+};

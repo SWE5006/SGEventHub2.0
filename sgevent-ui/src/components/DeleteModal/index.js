@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PropTypes from "prop-types";
 
 const style = {
   position: "absolute",
@@ -53,3 +54,9 @@ export default function DeleteModal({ title, label, onDelete }) {
     </div>
   );
 }
+
+DeleteModal.propTypes = {
+  title: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onDelete: PropTypes.func,
+};

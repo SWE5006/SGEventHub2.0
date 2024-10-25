@@ -15,6 +15,12 @@ export default function Login() {
     requestLogin({ emailAddress, password });
   }, [emailAddress, password]);
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      onLogin();
+    }
+  };
+
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/home");
@@ -55,6 +61,7 @@ export default function Login() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleKeyDown}
           margin="normal"
         />
       </Grid>
@@ -70,13 +77,13 @@ export default function Login() {
       </Grid>
       <Grid item xs={12} sx={{ width: "75%", mt: 2 }}>
         <Typography textAlign="center" sx={{ mt: 2 }}>
-          Don't have an SG EventHub account?
-          <span
+          Don't have an SG EventHub account?{" "}
+          <Typography
             style={{ textDecoration: "underline", cursor: "pointer" }}
             onClick={() => navigate("/signup")}
           >
             Sign Up now
-          </span>
+          </Typography>
         </Typography>
       </Grid>
     </Grid>

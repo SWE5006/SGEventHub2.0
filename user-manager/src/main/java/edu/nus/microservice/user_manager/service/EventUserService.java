@@ -39,7 +39,7 @@ public class EventUserService {
         return saveAndBuildResponse(emailAddress, userName, password, activeStatus, roleId);
     }
 
-    private EventUserResponse saveAndBuildResponse(String emailAddress, String userName,  String password, int activeStatus, int roleId) {
+    private EventUserResponse saveAndBuildResponse(String userName, String emailAddress,  String password, int activeStatus, int roleId) {
         // 创建 EventUser 实体对象
         EventUser eventUser = EventUser.builder()
                 .UserName(userName)

@@ -10,12 +10,13 @@ import { navigate } from "gatsby";
 import EditEventForm from "../../components/EditEventForm";
 import { useGetUserListByIdsMutation } from "../../services/user.service";
 import Button from "@mui/material/Button";
+import PropTypes from "prop-types";
 
 export default function EditEvent({ location }) {
   const params = new URLSearchParams(location.search);
   const eventId = params.get("eventid");
 
-  const { data, error, isFetching, refetch } = useGetEventDetailsQuery(eventId);
+  const { data, isFetching } = useGetEventDetailsQuery(eventId);
   const [updateEvent, result] = useUpdateEventMutation();
   const [registerEvent, registerResult] = useRegisterEventMutation();
   const [getUserList, userListResult] = useGetUserListByIdsMutation();
@@ -85,3 +86,7 @@ export default function EditEvent({ location }) {
     </Layout>
   );
 }
+
+EditEvent.propTypes = {
+  location: PropTypes.shape({ search: PropTypes.string }),
+};

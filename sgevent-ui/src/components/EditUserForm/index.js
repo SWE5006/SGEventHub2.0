@@ -9,6 +9,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { navigate } from "gatsby";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import PropTypes from "prop-types";
 
 export default function EditUserForm({
   value,
@@ -142,3 +143,18 @@ export default function EditUserForm({
     </Box>
   ) : null;
 }
+
+EditUserForm.propTypes = {
+  value: PropTypes.shape({
+    userId: PropTypes.string,
+    emailAddress: PropTypes.string,
+    activeStatus: PropTypes.string,
+    roleId: PropTypes.string,
+    userName: PropTypes.string,
+  }).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  isEdit: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  roleList: PropTypes.array,
+};
