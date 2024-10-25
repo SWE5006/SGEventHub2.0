@@ -8,14 +8,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { userNameSelector } from "../../state/auth/slice";
+import { userInfoSelector } from "../../state/auth/slice";
 import { useSelector } from "react-redux";
 import LogoutPage from "../../pages/logout";
 import { navigate } from "gatsby";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const userName = useSelector(userNameSelector); // 直接获取用户名
+  const userInfo = useSelector(userInfoSelector); // 直接获取用户名
 
   const logout = LogoutPage();
   const handleNavigateHome = () => {
@@ -73,8 +73,27 @@ export default function Header() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>{userName || "Profile"}</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>
+                {userInfo?.userName || "Profile"}
+              </MenuItem>
+              {userInfo.roleId === 3 ? (
+                <MenuItem
+                  onClick={() => {
+                    navigate("/users");
+                    handleClose();
+                  }}
+                >
+                  Users
+                </MenuItem>
+              ) : null}
+              <MenuItem
+                onClick={() => {
+                  navigate("/events");
+                  handleClose();
+                }}
+              >
+                Events
+              </MenuItem>
               <MenuItem
                 onClick={() => {
                   handleClose();

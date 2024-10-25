@@ -15,6 +15,12 @@ export default function Login() {
     requestLogin({ emailAddress, password });
   }, [emailAddress, password]);
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      onLogin();
+    }
+  };
+
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/home");
@@ -55,6 +61,7 @@ export default function Login() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleKeyDown}
           margin="normal"
         />
       </Grid>
