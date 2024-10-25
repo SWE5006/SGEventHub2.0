@@ -58,6 +58,7 @@ jobs:
           path: sgevent-ui/.env
           export-variables: true
           log-variables: true
+          keys-case: upper
 
       - name: Install Yarn
         run: npm install -g yarn
